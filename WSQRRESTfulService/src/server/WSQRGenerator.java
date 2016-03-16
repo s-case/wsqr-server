@@ -12,6 +12,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -223,7 +224,8 @@ public class WSQRGenerator {
 		return Response.status(200).entity(measure).build();
 	}
 
-	@Path("/{service_name}/internal/{measure_name}/{value_kind}")
+	// TODO: Fix this, or find a way to get a measure value given also its kind
+	/*@Path("/{service_name}/internal/{measure_name}/{value_kind}")
 	@GET
 	@Consumes("application/xml")
 	public Response getInternalMeasure(@PathParam("service_name") String serviceName,
@@ -233,7 +235,7 @@ public class WSQRGenerator {
 		System.out.println("Measure: " + measureName);
 		String measure = getInternal(serviceName, measureName, valueKind);
 		return Response.status(200).entity(measure).build();
-	}
+	}*/
 
 	@Path("/{service_name}/external")
 	@POST
@@ -255,7 +257,8 @@ public class WSQRGenerator {
 		return Response.status(200).entity(measure).build();
 	}
 
-	@Path("/{service_name}/external/{measure_name}/{value_kind}")
+	// TODO: Fix this, or find a way to get a measure value given also its kind
+	/*@Path("/{service_name}/external/{measure_name}/{value_kind}")
 	@GET
 	@Consumes("application/xml")
 	public Response getExternalMeasure(@PathParam("service_name") String serviceName,
@@ -266,7 +269,7 @@ public class WSQRGenerator {
 		System.out.println("Measure: " + measureName);
 		String measure = getExternal(serviceName, measureName, valueKind);
 		return Response.status(200).entity(measure).build();
-	}
+	}*/
 
 	@Path("/ontology")
 	@DELETE
@@ -320,7 +323,7 @@ public class WSQRGenerator {
 	}
 
 	@Path("/{service_name}/internal/{measure_name}/{validation_means}")
-	@POST
+	@PUT
 	@Consumes("application/xml")
 	public Response updateInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, @PathParam("validation_means") String means) {
@@ -330,7 +333,7 @@ public class WSQRGenerator {
 	}
 
 	@Path("/{service_name}/external/{measure_name}/{validation_means}")
-	@POST
+	@PUT
 	@Consumes("application/xml")
 	public Response updateExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, @PathParam("validation_means") String means) {
