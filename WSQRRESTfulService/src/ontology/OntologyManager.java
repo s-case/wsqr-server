@@ -95,8 +95,7 @@ public class OntologyManager {
 				}
 			}
 		}
-		// Close the connection.
-		ontology.close();
+		ontology.close(); // Close the connection.
 	}
 	
 	public  static void deleteService(String name){

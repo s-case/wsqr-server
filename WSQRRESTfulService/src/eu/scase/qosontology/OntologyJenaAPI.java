@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.hp.hpl.jena.ontology.Individual;
@@ -58,7 +57,6 @@ public class OntologyJenaAPI {
 			try {
 				f.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -254,4 +252,3 @@ public class OntologyJenaAPI {
 		base.write(out);
 	}
 }
-

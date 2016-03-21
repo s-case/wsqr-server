@@ -1,8 +1,8 @@
-/Applications/eclipse-Luna/workspace/WSQRRESTfulService/src/server/Service.java
-/Applications/eclipse-Luna/workspace/WSQRRESTfulService/src/eu/scase/qosontology/OntologyJenaAPI.java
-/Applications/eclipse-Luna/workspace/WSQRRESTfulService/src/server/Measure.java
-/Applications/eclipse-Luna/workspace/WSQRRESTfulService/src/eu/scase/qosontology/OntologyQoSQuery.java
-/Applications/eclipse-Luna/workspace/WSQRRESTfulService/src/server/WSQRParser.java
-/Applications/eclipse-Luna/workspace/WSQRRESTfulService/src/server/WSQRGenerator.java
-/Applications/eclipse-Luna/workspace/WSQRRESTfulService/src/eu/scase/qosontology/OntologyQoSAPI.java
-/Applications/eclipse-Luna/workspace/WSQRRESTfulService/src/ontology/OntologyManager.java
+/Users/Carol/Documents/Università/Tirocinio/wsqr-server/WSQRRESTfulService/src/eu/scase/qosontology/OntologyQoSAPI.java
+/Users/Carol/Documents/Università/Tirocinio/wsqr-server/WSQRRESTfulService/src/server/WSQRGenerator.java
+/Users/Carol/Documents/Università/Tirocinio/wsqr-server/WSQRRESTfulService/src/ontology/OntologyManager.java
+/Users/Carol/Documents/Università/Tirocinio/wsqr-server/WSQRRESTfulService/src/server/Measure.java
+/Users/Carol/Documents/Università/Tirocinio/wsqr-server/WSQRRESTfulService/src/eu/scase/qosontology/OntologyJenaAPI.java
+/Users/Carol/Documents/Università/Tirocinio/wsqr-server/WSQRRESTfulService/src/server/WSQRParser.java
+/Users/Carol/Documents/Università/Tirocinio/wsqr-server/WSQRRESTfulService/src/eu/scase/qosontology/OntologyQoSQuery.java
+/Users/Carol/Documents/Università/Tirocinio/wsqr-server/WSQRRESTfulService/src/server/Service.java

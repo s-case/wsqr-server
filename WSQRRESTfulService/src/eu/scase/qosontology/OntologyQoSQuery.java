@@ -264,7 +264,7 @@ public class OntologyQoSQuery {
 				return measure + "__" + property;
 			}
 		} else {
-			// Simple command such as Accessability_AC or full sommand such as Successability_SU__PValue
+			// Simple command such as Accessability_AC or full command such as Successability_SU__PValue
 			addSelectVariable(expression);
 			return expression;
 		}
@@ -340,4 +340,3 @@ public class OntologyQoSQuery {
 		return selectString + "\n" + whereString + "\n}" + (orderString != "" ? "\n" + orderString : "");
 	}
 }
-
