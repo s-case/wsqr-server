@@ -26,14 +26,6 @@ public class WSQRParser {
 	public final static String M_PV="PValue";
 	public final static String M_SSL="StatisticalSignificanceLevel";
 	
-	/*
-	 * SI LEGGE RIGA PER RIGA content. SE CONTIENE S_XML O S_WSQR ALLORA PASSA A LEGGERE IL SUCCESSIVO, ALTRIMENTI:
-	 * SE line CONTIENE S_IM SETTA internal = true
-	 * SE line CONTIENE S_EM SETTA internal = false
-	 * POI A measure, CHE CONTIENE SOLO "" AGGIUNGE LA line CHE STA ESAMINANDO SAGUITA DA UNA "A CAPO".
-	 * SE line CONTIENE S_MD, IN BASE AL VALORE DI internal (IMPOSTATO PRIMA A true O false) AGGIUNGE IL SERVIZIO
-	 * TRA LE internal O external measure (CON LA MISURAZIONE, LA line, FATTA)
-	 */
 	public static void parseService(Service service, String content) {
 		BufferedReader br = new BufferedReader(new StringReader(content));
 		String line=null;
@@ -67,13 +59,7 @@ public class WSQRParser {
 			e.printStackTrace();
 		}
 	}
-	
-	/*
-	 * AD OGNI CICLO ASSEGNA A line IL VALORE CHE LEGGE DALLA STRINGA content.
-	 * PER OGNI line NE SETTA NOME, VALORE E TIPO DI VALORE.
-	 * CON IL METODO find (SE LA line CONTIENE QUEI CARATTERI) SE AD ESEMPIO TROVA M_N, ALLORA CERCA SE CONTIENE
-	 * ANCHE ". SE LO CONTIENEM SETTA name SOLO CON LA PARTE TRA APICI, ALTRIMENTI SOLO CON LA PARTE TRA ><.
-	 */
+
 	public static void parseMeasure(Measure measure, String content) {
 		BufferedReader br = new BufferedReader(new StringReader(content));
 		String line=null;
@@ -94,14 +80,7 @@ public class WSQRParser {
 			e.printStackTrace();	
 		}
 	}
-	
-	/*
-	 * SE LA STRINGA line CONTIENE IL CARATTERE ", IL METODO RESTITUISCE LA SOTTOSTRINGA COMPRESA TRA L'INIZIO
-	 * E LA FINE DEGLI APICI.
-	 * AD ESEMPIO 'EHI "CIAO"', RESTITUISCE CIAO.
-	 * SE line NON CONTIENE ", IL METODO RESTITUISCE LA SOTTOSTRINGA COMPRESA TRA > E <.
-	 * AD ESEMPIO 'EHI >CIAO<', RESTITUISCE CIAO.
-	 */
+
 	private static String findValue(String line, String value){
 		if(line.contains(value)){
 			//System.out.println(line);

@@ -16,14 +16,16 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.jdom2.Attribute;
-import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.json.JSONObject;
+
 import ontology.OntologyManager;
+
 import com.hp.hpl.jena.query.ResultSet;
 
 /**
@@ -87,18 +89,16 @@ public class WSQRGenerator {
 	
 	@Path("/{service_name}")
 	@GET
-	@Produces("application/xml")
-	public Response getService(@PathParam("service_name") String serviceName){
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getWebService(@PathParam("service_name") String serviceName){
 		System.out.println("GET service_name:"+serviceName);
-		//read service file
 		Service service = readService(serviceName);
-		// return service file
-		return Response.status(200).entity(service.toString()).build();
+		return Response.status(200).entity(new JSONObject().put("service", service)).type("application/json").build();
 	}
 	
 	@Path("/{service_name}")
 	@POST
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addWebService(@PathParam("service_name") String serviceName, String service){
 		System.out.println("POST service_name: " + serviceName);
 		System.out.println("FILE: " + service);
@@ -129,39 +129,21 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/measures")
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllMeasuresOfWebService(@PathParam("service_name") String serviceName){
 		System.out.println("GET measures: " + serviceName);
-		ArrayList<Measure> measures = new ArrayList<Measure>();
 		Service service = readService(serviceName);
 		
-		measures.addAll(service.getInternal());
-		measures.addAll(service.getExternal());
-		return Response.status(200).entity(measures).build();
-	}
-	
-	@Path("/{service_name}/internal/{measure_name}/{value}")
-	@GET
-	@Consumes("application/xml")
-	public Response getInternalMeasureValueForWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure, @PathParam("value") String valueKind){
-		System.out.println("GET measure value from: " + serviceName);
-		String value = getInternal(serviceName, measure, valueKind);
-		return Response.status(200).entity(value).build();
-	}
-	
-	@Path("/{service_name}/external/{measure_name}/{value_kind}")
-	@GET
-	@Consumes("application/xml")
-	public Response getExternalMeasureValueForWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure, @PathParam("value") String valueKind){
-		System.out.println("GET measure value from: " + serviceName);
-		String value = getExternal(serviceName, measure, valueKind);
-		return Response.status(200).entity(value).build();
+		JSONObject json = new JSONObject();
+		prepareInternalJson(service, json);
+		prepareExternalJson(service, json);
+		
+		return Response.status(200).entity(json).type("application/json").build();
 	}
 
 	@Path("/{service_name}/internal/{measure_name}")
 	@DELETE
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteInternalMeasureOfWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure) {
 		System.out.println("DELETE measure from: " + serviceName);
@@ -172,7 +154,7 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/external/{measure_name}")
 	@DELETE
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteExternalMeasureOfWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure) {
 		System.out.println("DELETE measure from: " + serviceName);
@@ -183,7 +165,7 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/internal/{measure_name}")
 	@POST
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateInternalMeasureOfWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String oldMeasure, String newMeasure) {
 		System.out.println("POST measure from: " + serviceName);
@@ -194,7 +176,7 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/external/{measure_name}")
 	@POST
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateExternalMeasureOfWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String oldMeasure, String newMeasure) {
 		System.out.println("POST measure from: " + serviceName);
@@ -205,7 +187,7 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/internal")
 	@POST
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addInternalMeasure(@PathParam("service_name") String serviceName, String measure) {
 		System.out.println("POST internal:" + serviceName);
 		System.out.println("Measure: " + measure);
@@ -213,63 +195,138 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
+	@Path("/{service_name}/external")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addExternalMeasure(@PathParam("service_name") String serviceName, String measure) {
+		System.out.println("POST external: "+serviceName);
+		System.out.println("Measure: " + measure);
+		addExternal(serviceName, measure );
+		return Response.status(200).build();
+	}
+	
 	@Path("/{service_name}/internal/{measure_name}")
 	@GET
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getInternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measureName) {
 		System.out.println("GET internal :" + serviceName);
 		System.out.println("Measure: " + measureName);
-		String measure = getInternal(serviceName, measureName);
-		return Response.status(200).entity(measure).build();
+		Measure measure = null;
+		Service service = readService(serviceName);
+		for(int i=0; i<service.getInternal().size(); i++){
+			if(service.getInternal().get(i).getName().equals(measureName))
+				measure = service.getInternal().get(i);
+		}
+		if(measure==null) {
+			return Response.status(404).build();
+		}
+		JSONObject json = new JSONObject();
+		json.put("MeasureName", measure.getName());
+		json.put("MeasureDefinition", new JSONObject()
+			.put("Description", measure.getDescription())
+			.put("Formula", measure.getFormula()));
+		json.put("MeasureValue", measure.getValue());
+		json.put("MeasureValueKind", measure.getValueKind());
+		json.put("InternalValidationMeansName", measure.getValidationMeans());
+		json.put("InternalValidationMeansAttributes", new JSONObject()
+			.put("AttributeName", measure.getAttributeName())
+			.put("AttributeValue", measure.getAttributeValue()));
+		json.put("InternalMeasureKind", measure.getMeasureKind());	
+		return Response.status(200).entity(json).type("application/json").build();
 	}
 
-	// TODO: Fix this, or find a way to get a measure value given also its kind
-	/*@Path("/{service_name}/internal/{measure_name}/{value_kind}")
+	@Path("/{service_name}/internal/{measure_name}/{value_kind}")
 	@GET
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getInternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measureName,
 			@PathParam("value_kind") String valueKind) {
 		System.out.println("GET internal with vk: " + serviceName);
 		System.out.println("Measure: " + measureName);
-		String measure = getInternal(serviceName, measureName, valueKind);
-		return Response.status(200).entity(measure).build();
-	}*/
-
-	@Path("/{service_name}/external")
-	@POST
-	@Consumes("application/xml")
-	public Response addExternalMeasure(@PathParam("service_name") String serviceName, String measure) {
-		System.out.println("POST external: "+serviceName);
-		addExternal(serviceName, measure );
-		return Response.status(200).build();
+		ArrayList<Measure> measure = getInternalByKind(serviceName, valueKind);
+		JSONObject json = new JSONObject();
+		for(int i=0; i<measure.size(); i++) {
+			json.put("MeasureName", measure.get(i).getName());
+			json.put("MeasureDefinition", new JSONObject()
+				.put("Description", measure.get(i).getDescription())
+				.put("Formula", measure.get(i).getFormula()));
+			json.put("MeasureValue", measure.get(i).getValue());
+			json.put("MeasureValueKind", measure.get(i).getValueKind());
+			json.put("InternalValidationMeansName", measure.get(i).getValidationMeans());
+			json.put("InternalValidationMeansAttributes", new JSONObject()
+				.put("AttributeName", measure.get(i).getAttributeName())
+				.put("AttributeValue", measure.get(i).getAttributeValue()));
+			json.put("InternalMeasureKind", measure.get(i).getMeasureKind());	
+		}
+		return Response.status(200).entity(json).type("application/json").build();
 	}
 
 	@Path("/{service_name}/external/{measure_name}")
 	@GET
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getExternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measureName) {
 		System.out.println("GET external: " + serviceName);
 		System.out.println("Measure: " + measureName);
-		String measure = getExternal(serviceName, measureName);
-		return Response.status(200).entity(measure).build();
+		Measure measure = null;
+		Service service = readService(serviceName);
+		for(int i=0; i<service.getExternal().size(); i++){
+			if(service.getExternal().get(i).getName().equals(measureName))
+				measure = service.getExternal().get(i);
+		}
+		if(measure==null) {
+			return Response.status(404).build();
+		}
+		JSONObject json = new JSONObject();
+		json.put("MeasureName", measure.getName());
+		json.put("MeasureDefinition", new JSONObject()
+			.put("Description", measure.getDescription())
+			.put("Formula", measure.getFormula()));
+		json.put("MeasureValue", measure.getValue());
+		json.put("MeasureValueKind", measure.getValueKind());
+		json.put("ExternalValidationMeansName", measure.getValidationMeans());
+		json.put("ExternalValidationMeansAttributes", new JSONObject()
+			.put("StatisticalSignificanceLevel", measure.getStatisticalSignificance())
+			.put("PValue", measure.getpValue())
+			.put("StatisticalTestUsed", measure.getStatisticalTest())
+			.put("AccuracyLevel-Value", measure.getAccuracyLevel())
+			.put("AccuracyIndicatorUser-Name", measure.getAccuracyIndicator()));
+		json.put("InternalMeasureKind", measure.getMeasureKind());
+		return Response.status(200).entity(json).type("application/json").build();
 	}
 
-	// TODO: Fix this, or find a way to get a measure value given also its kind
-	/*@Path("/{service_name}/external/{measure_name}/{value_kind}")
+	@Path("/{service_name}/external/{measure_name}/{value_kind}")
 	@GET
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getExternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measureName,
 			@PathParam("value_kind") String valueKind) {
 		
 		System.out.println("GET external with vk: " + serviceName);
 		System.out.println("Measure: " + measureName);
-		String measure = getExternal(serviceName, measureName, valueKind);
-		return Response.status(200).entity(measure).build();
-	}*/
+		ArrayList<Measure> measure = getExternalByKind(serviceName, valueKind);
+		JSONObject json = new JSONObject();
+		for(int i=0; i<measure.size(); i++) {
+			json.append("External", new JSONObject()
+			.put("MeasureName", measure.get(i).getName())
+			.put("MeasureDefinition", new JSONObject()
+				.put("Description", measure.get(i).getDescription())
+				.put("Formula", measure.get(i).getFormula()))
+			.put("MeasureValue", measure.get(i).getValue())
+			.put("MeasureValueKind", measure.get(i).getValueKind())
+			.put("ExternalValidationMeansName", measure.get(i).getValidationMeans())
+			.put("ExternalValidationMeansAttributes", new JSONObject()
+				.put("StatisticalSignificanceLevel", measure.get(i).getStatisticalSignificance())
+				.put("PValue", measure.get(i).getpValue())
+				.put("StatisticalTestUsed", measure.get(i).getStatisticalTest())
+				.put("AccuracyLevel-Value", measure.get(i).getAccuracyLevel())
+				.put("AccuracyIndicatorUser-Name", measure.get(i).getAccuracyIndicator()))
+			.put("InternalMeasureKind", measure.get(i).getMeasureKind())
+			);	
+		}
+		return Response.status(200).entity(json).type("application/json").build();
+	}
 
 	@Path("/ontology")
 	@DELETE
@@ -288,7 +345,7 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/ontology")
 	@POST
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createOntology(@PathParam("service_name") String serviceName) {
 		System.out.println("POST ontology: "+serviceName);
 		String ontology = createServiceOntology(serviceName);		
@@ -297,7 +354,7 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/ontology")
 	@GET
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getOntology(@PathParam("service_name") String serviceName) {
 		System.out.println("GET ontology: "+serviceName);
 		String ontology = OntologyManager.getOntology(serviceName);
@@ -306,7 +363,7 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/internal/{measure_name}/{validation_means}")
 	@POST
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("validation_means") String means, @PathParam("measure_name") String measure) {
 		addInternalValidationMeans(serviceName, measure, means);
@@ -315,7 +372,7 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/external/{measure_name}/{validation_means}")
 	@POST
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("validation_means") String means, @PathParam("measure_name") String measure) {
 		addExternalValidationMeans(serviceName, measure, means);
@@ -324,37 +381,34 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/internal/{measure_name}/{validation_means}")
 	@PUT
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, @PathParam("validation_means") String means) {
-		//è corretto che, sebbene sia un update, il metodo richiamato è anche qui addValidationMeans??
 		addInternalValidationMeans(serviceName, measure, means);
 		return Response.status(200).build();
 	}
 
 	@Path("/{service_name}/external/{measure_name}/{validation_means}")
 	@PUT
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, @PathParam("validation_means") String means) {
 		addExternalValidationMeans(serviceName, measure, means);
 		return Response.status(200).build();
 	}
 	
-	//SISTEMATO (è corretto che passiamo solo due parametri al metodo?)
 	@Path("/{service_name}/internal/{measure_name}/{validation_means}")
 	@DELETE
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure) {
 		deleteInternalValidationMeans(serviceName, measure);
 		return Response.status(200).build();
 	}
 	
-	//SISTEMATO (è corretto che passiamo solo due parametri al metodo?)
 	@Path("/{service_name}/external/{measure_name}/{validation_means}")
 	@DELETE
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure) {
 		deleteExternalValidationMeans(serviceName, measure);
@@ -363,7 +417,7 @@ public class WSQRGenerator {
 	
 	@Path("/{service_name}/xml")
 	@GET
-	@Consumes("application/xml")
+	@Consumes(MediaType.APPLICATION_XML)
 	public Response generateXML(@PathParam("service_name") String serviceName) {
 		System.out.println("GET XML document: " + serviceName);
 		Service service = readService(serviceName);
@@ -476,6 +530,47 @@ public class WSQRGenerator {
 		return OntologyManager.getOntology(serviceName);
 	}
 	
+	private void prepareInternalJson(Service service, JSONObject json) {
+		json.put("Internal", new ArrayList());
+		for(int i=0; i<service.getInternal().size(); i++) {
+			json.append("Internal", new JSONObject()
+			.put("MeasureName", service.getInternal().get(i).getName())
+			.put("MeasureDefinition", new JSONObject()
+				.put("Description", service.getInternal().get(i).getDescription())
+				.put("Formula", service.getInternal().get(i).getFormula()))
+			.put("MeasureValue", service.getInternal().get(i).getValue())
+			.put("MeasureValueKind", service.getInternal().get(i).getValueKind())
+			.put("InternalValidationMeansName", service.getInternal().get(i).getValidationMeans())
+			.put("InternalValidationMeansAttributes", new JSONObject()
+				.put("AttributeName", service.getInternal().get(i).getAttributeName())
+				.put("AttributeValue", service.getInternal().get(i).getAttributeValue()))
+			.put("InternalMeasureKind", service.getInternal().get(i).getMeasureKind())
+			);	
+		}
+	}
+	
+	private void prepareExternalJson(Service service, JSONObject json) {
+		json.put("External", new ArrayList());
+		for(int i=0; i<service.getExternal().size(); i++) {
+			json.append("External", new JSONObject()
+			.put("MeasureName", service.getExternal().get(i).getName())
+			.put("MeasureDefinition", new JSONObject()
+				.put("Description", service.getExternal().get(i).getDescription())
+				.put("Formula", service.getExternal().get(i).getFormula()))
+			.put("MeasureValue", service.getExternal().get(i).getValue())
+			.put("MeasureValueKind", service.getExternal().get(i).getValueKind())
+			.put("ExternalValidationMeansName", service.getExternal().get(i).getValidationMeans())
+			.put("ExternalValidationMeansAttributes", new JSONObject()
+				.put("StatisticalSignificanceLevel", service.getExternal().get(i).getStatisticalSignificance())
+				.put("PValue", service.getExternal().get(i).getpValue())
+				.put("StatisticalTestUsed", service.getExternal().get(i).getStatisticalTest())
+				.put("AccuracyLevel-Value", service.getExternal().get(i).getAccuracyLevel())
+				.put("AccuracyIndicatorUser-Name", service.getExternal().get(i).getAccuracyIndicator()))
+			.put("InternalMeasureKind", service.getExternal().get(i).getMeasureKind())
+			);	
+		}
+	}
+	
 	private void deleteInternalValidationMeans(String serviceName, String measure) {
 		Service service = readService(serviceName);
 		for(int i=0; i<service.getInternal().size(); i++) {
@@ -544,26 +639,6 @@ public class WSQRGenerator {
 		writeService(serviceName, service);
 	}
 	
-	private String getExternal(String serviceName, String measureName) {
-		Service service = readService(serviceName);
-		for(int i=0;i<service.getExternal().size();i++) {
-			if(service.getExternal().get(i).getName().equals(measureName)) {
-				return service.getExternal().get(i).getContent();
-			}
-		}
-		return null;
-	}
-	
-	private String getInternal(String serviceName, String measureName) {
-		Service service = readService(serviceName);
-		for(int i=0;i<service.getInternal().size();i++) {
-			if(service.getInternal().get(i).getName().equals(measureName)) {
-				return service.getInternal().get(i).getContent();
-			}
-		}
-		return null;
-	}
-	
 	private void deleteInternal(String serviceName, String measureName) {
 		Service service = readService(serviceName);
 		for(int i=0;i<service.getInternal().size();i++) {
@@ -599,27 +674,25 @@ public class WSQRGenerator {
 			}
 		}
 	}
-	
-	private String getExternal(String serviceName, String measureName,String valueKind) {
+
+	private ArrayList<Measure> getExternalByKind(String serviceName, String valueKind) {
 		Service service = readService(serviceName);
-		for(int i=0;i<service.getExternal().size();i++){
-			if(service.getExternal().get(i).getName().equals(measureName)
-					&& service.getExternal().get(i).getValueKind().equals(valueKind)) {
-				return service.getExternal().get(i).getContent();
-			}
-		}
-		return null;
+		ArrayList<Measure> measures = new ArrayList<Measure>();
+		for(int i=0; i<service.getExternal().size(); i++) {
+			if(service.getExternal().get(i).getValueKind().equals(valueKind)) 
+				measures.add(service.getExternal().get(i));
+		} 
+			return measures;
 	}
-	
-	private String getInternal(String serviceName, String measureName, String valueKind) {
+
+	private ArrayList<Measure> getInternalByKind(String serviceName, String valueKind) {
 		Service service = readService(serviceName);
-		for(int i=0;i<service.getInternal().size();i++) {
-			if(service.getInternal().get(i).getName().equals(measureName)
-					&& service.getInternal().get(i).getValueKind().equals(valueKind)) {
-				return service.getInternal().get(i).getContent();
-			}
+		ArrayList<Measure> measures = new ArrayList<Measure>();
+		for(int i=0; i<service.getInternal().size(); i++) {
+			if(service.getInternal().get(i).getValueKind().equals(valueKind))
+				measures.add(service.getInternal().get(i));
 		}
-		return null;
+			return measures;
 	}
 	
 	private Service readService(String serviceName) {
