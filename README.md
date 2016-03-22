@@ -1,0 +1,2 @@
+# wsqr-server
+WSQR server
