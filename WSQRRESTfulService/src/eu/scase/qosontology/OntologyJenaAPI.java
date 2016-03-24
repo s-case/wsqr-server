@@ -96,18 +96,6 @@ public class OntologyJenaAPI {
 		OntClass ontClass = base.getOntClass(addNamespaceToInstance(className));
 		base.createIndividual(addNamespaceToInstance(individualName), ontClass);
 	}
-
-	//DA COMPLETARE
-	/**
-	 * Get an individual from the ontology.
-	 * 
-	 *  @param individualName the name of the individual to be got.
-	 *  @param propertyName the name of the property of which the value is got.
-	 */
-	public Individual getIndividualService(String individualName) {
-		return base.getIndividual(individualName);
-		//return getIndividual(individualName);
-	}
 	
 	/**
 	 * Removes an individual of the ontology given its name. Note that this method removes also all the statements that
