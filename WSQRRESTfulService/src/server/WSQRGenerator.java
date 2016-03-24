@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,15 +19,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.json.JSONObject;
-
 import ontology.OntologyManager;
-
 import com.hp.hpl.jena.query.ResultSet;
+import eu.scase.qosontology.OntologyQoSAPI;
+import eu.scase.qosontology.OntologyQoSQuery;
 
 /**
  * Provides the WSQR Restful set of methods for all the WSQR operations in the API.
@@ -75,7 +77,7 @@ import com.hp.hpl.jena.query.ResultSet;
 @Path("/services")
 public class WSQRGenerator {
 
-	private final String servicesDirectory="/Applications/eclipse-Luna/workspace/WSQRRESTfulService/services/";
+	//private final String servicesDirectory="/Applications/eclipse-Luna/workspace/WSQRRESTfulService/services/";
 	
 	public String getName(String serviceName) {
 		return serviceName;
@@ -87,134 +89,207 @@ public class WSQRGenerator {
 		return Response.status(200).entity("Hello, World!!").build();
 	}
 	
+	
+	//DA CONTROLLARE
 	@Path("/{service_name}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getWebService(@PathParam("service_name") String serviceName){
-		System.out.println("GET service_name:"+serviceName);
-		Service service = readService(serviceName);
-		return Response.status(200).entity(new JSONObject().put("service", service)).type("application/json").build();
+	public Response getWebService(@PathParam("service_name") String serviceName, String measureNames){
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
+		System.out.println("GET service_name: " + serviceName);
+		
+		OntologyQoSQuery query = new OntologyQoSQuery()
+						.selectWebServices(serviceName)
+						.selectMeasures(measureNames);
+		
+		ontology.performQuery(query);
+		ontology.getWebService(serviceName);
+		//ontology.get
+		//Service service = readService(serviceName);
+		ontology.close();
+		return Response.status(200).entity(new JSONObject().put("service", ontology /*controllare*/)).type("application/json").build();
 	}
+	
+	
 	
 	@Path("/{service_name}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addWebService(@PathParam("service_name") String serviceName, String service){
+		//connection to the ontology
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
 		System.out.println("POST service_name: " + serviceName);
-		System.out.println("FILE: " + service);
-		String servName = createServiceOntology(service);
-		if(servName.equals(serviceName)){
+		//System.out.println("FILE: " + service);
+		//String servName = createServiceOntology(service);
+		//if(servName.equals(serviceName)){
+			//add web service
+			ontology.addWebService(serviceName);
 			JSONObject json = new JSONObject();
 			json.put("message", "200 OK"
 					+ "{"
 					+ "		serviceName:	" + serviceName + ";"
 					+ "}");
 			Response.ok(json);
-			return Response.status(200).build();
-		}
-		else {
-			return Response.status(500).build();
-		}
+			ontology.close();
+			return Response.status(200).entity(json).build();
+		//}
+		//else {
+			//ontology.close();
+			//return Response.status(500).build();
+		//}
 	}
+	
 	
 	@Path("/{service_name}")
 	@DELETE
 	public Response deleteWebService(@PathParam("service_name") String serviceName){
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
 		System.out.println("DELETE service_name:" + serviceName);
+		
+		//OntologyQoSQuery query = new OntologyQoSQuery()
+						//.selectWebServices(serviceName);
+		
+		//ResultSet results = ontology.performQuery(query);
+		ontology.deleteWebService(serviceName);
+		ontology.close();
 		//OntologyManager.deleteService(serviceName);
-		File f = new File(servicesDirectory + serviceName);
-		f.delete();
+		//File f = new File(servicesDirectory + serviceName);
+		//f.delete();
 		return Response.status(200).build();	
 	}
-
+	
+	
 	@Path("/{service_name}/measures")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllMeasuresOfWebService(@PathParam("service_name") String serviceName){
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+
 		System.out.println("GET measures: " + serviceName);
-		Service service = readService(serviceName);
+		//Service service = readService(serviceName);
+		
+		ArrayList<String> measures = ontology.getAllMeasuresOfWebService(serviceName);
 		
 		JSONObject json = new JSONObject();
-		prepareInternalJson(service, json);
-		prepareExternalJson(service, json);
+		prepareJson(measures, json);
+		//prepareInternalJson(service, json);
+		//prepareExternalJson(service, json);
+		
+		ontology.close();
 		
 		return Response.status(200).entity(json).type("application/json").build();
 	}
-
+	
+	
 	@Path("/{service_name}/internal/{measure_name}")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteInternalMeasureOfWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure) {
+			@PathParam("measure_name") String measure, String valueKind) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
 		System.out.println("DELETE measure from: " + serviceName);
 		System.out.println("Measure: " + measure);
-		deleteInternal(serviceName, measure);
+		ontology.deleteMeasureOfWebService(serviceName, measure, valueKind);
+		ontology.close();
+		//deleteInternal(serviceName, measure);
 		return Response.status(200).build();
 	}
-
+	
+	
 	@Path("/{service_name}/external/{measure_name}")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteExternalMeasureOfWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure) {
+			@PathParam("measure_name") String measure, String valueKind) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
 		System.out.println("DELETE measure from: " + serviceName);
 		System.out.println("Measure: " + measure);
-		deleteExternal(serviceName, measure);
+		ontology.deleteMeasureOfWebService(serviceName, measure, valueKind);
+		ontology.close();
+		//deleteExternal(serviceName, measure);
 		return Response.status(200).build();
 	}
-
+	
+	
 	@Path("/{service_name}/internal/{measure_name}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateInternalMeasureOfWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String oldMeasure, String newMeasure) {
+			@PathParam("measure_name") String measure, String valueKind, float value) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
 		System.out.println("POST measure from: " + serviceName);
-		System.out.println("Measure:" + oldMeasure);
-		updateInternal(serviceName, oldMeasure, newMeasure);
+		System.out.println("Measure:" + measure);
+		ontology.updateMeasureOfWebService(serviceName, measure, valueKind, value);
+		ontology.close();
+		//updateInternal(serviceName, measure, measure);
 		return Response.status(200).build();
 	}
-
+	
+	
 	@Path("/{service_name}/external/{measure_name}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateExternalMeasureOfWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String oldMeasure, String newMeasure) {
+			@PathParam("measure_name") String measure, String valueKind, float value) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
 		System.out.println("POST measure from: " + serviceName);
-		System.out.println("Measure: " + oldMeasure);
-		updateExternal(serviceName, oldMeasure, newMeasure);
-		return Response.status(200).build();
-	}
-
-	@Path("/{service_name}/internal")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addInternalMeasure(@PathParam("service_name") String serviceName, String measure) {
-		System.out.println("POST internal:" + serviceName);
 		System.out.println("Measure: " + measure);
-		addInternal(serviceName, measure);
-		return Response.status(200).build();
-	}
-
-	@Path("/{service_name}/external")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addExternalMeasure(@PathParam("service_name") String serviceName, String measure) {
-		System.out.println("POST external: "+serviceName);
-		System.out.println("Measure: " + measure);
-		addExternal(serviceName, measure );
+		ontology.updateMeasureOfWebService(serviceName, measure, valueKind, value);
+		ontology.close();
+		//updateExternal(serviceName, measure);
 		return Response.status(200).build();
 	}
 	
-	@Path("/{service_name}/internal/{measure_name}")
+	
+	@Path("/{service_name}/internal")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addInternalMeasure(@PathParam("service_name") String serviceName, String measure, String measureKind, float measureValue) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
+		System.out.println("POST internal:" + serviceName);
+		System.out.println("Measure: " + measure);
+		
+		ontology.addMeasureToWebService(serviceName, measure, measureKind, measureValue);
+		ontology.close();
+		//addInternal(serviceName, measure);
+		return Response.status(200).build();
+	}
+
+	
+	@Path("/{service_name}/external")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addExternalMeasure(@PathParam("service_name") String serviceName, String measure, String measureKind, float measureValue) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+
+		System.out.println("POST external: "+serviceName);
+		System.out.println("Measure: " + measure);
+		
+		ontology.addMeasureToWebService(serviceName, measure, measureKind, measureValue);
+		ontology.close();
+		//addExternal(serviceName, measure);
+		return Response.status(200).build();
+	}
+	
+	@Path("/{service_name}/internal/{measure_position}")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getInternalMeasure(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measureName) {
+			@PathParam("measure_position") int measurePos) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
 		System.out.println("GET internal :" + serviceName);
-		System.out.println("Measure: " + measureName);
-		Measure measure = null;
-		Service service = readService(serviceName);
-		for(int i=0; i<service.getInternal().size(); i++){
+		System.out.println("MeasurePosition: " + measurePos);
+		
+		String measure = ontology.getMeasureOfWebService(serviceName, measurePos);
+		//Measure measure = null;
+		
+		//Service service = readService(serviceName);
+		/*for(int i=0; i<service.getInternal().size(); i++){
 			if(service.getInternal().get(i).getName().equals(measureName))
 				measure = service.getInternal().get(i);
 		}
@@ -232,8 +307,9 @@ public class WSQRGenerator {
 		json.put("InternalValidationMeansAttributes", new JSONObject()
 			.put("AttributeName", measure.getAttributeName())
 			.put("AttributeValue", measure.getAttributeValue()));
-		json.put("InternalMeasureKind", measure.getMeasureKind());	
-		return Response.status(200).entity(json).type("application/json").build();
+		json.put("InternalMeasureKind", measure.getMeasureKind());	*/
+		ontology.close();
+		return Response.status(200).entity(new JSONObject().put("Measure", measure)).type("application/json").build();
 	}
 
 	@Path("/{service_name}/internal/{measure_name}/{value_kind}")
@@ -242,10 +318,14 @@ public class WSQRGenerator {
 	public Response getInternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measureName,
 			@PathParam("value_kind") String valueKind) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
 		System.out.println("GET internal with vk: " + serviceName);
 		System.out.println("Measure: " + measureName);
-		ArrayList<Measure> measure = getInternalByKind(serviceName, valueKind);
-		JSONObject json = new JSONObject();
+		
+		float measure = ontology.getMeasureValueForWebService(serviceName, measureName, valueKind);
+		//ArrayList<Measure> measure = getInternalByKind(serviceName, valueKind);
+		/*JSONObject json = new JSONObject();
 		for(int i=0; i<measure.size(); i++) {
 			json.put("MeasureName", measure.get(i).getName());
 			json.put("MeasureDefinition", new JSONObject()
@@ -258,19 +338,24 @@ public class WSQRGenerator {
 				.put("AttributeName", measure.get(i).getAttributeName())
 				.put("AttributeValue", measure.get(i).getAttributeValue()));
 			json.put("InternalMeasureKind", measure.get(i).getMeasureKind());	
-		}
-		return Response.status(200).entity(json).type("application/json").build();
+		}*/
+		ontology.close();
+		return Response.status(200).entity(new JSONObject().put("MeasureValue", measure)).type("application/json").build();
 	}
 
-	@Path("/{service_name}/external/{measure_name}")
+	@Path("/{service_name}/external/{measure_position}")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getExternalMeasure(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measureName) {
+			@PathParam("measure_position") int measurePos) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
 		System.out.println("GET external: " + serviceName);
-		System.out.println("Measure: " + measureName);
-		Measure measure = null;
-		Service service = readService(serviceName);
+		System.out.println("Measure: " + measurePos);
+		
+		String measure = ontology.getMeasureOfWebService(serviceName, measurePos);
+		//Measure measure = null;
+		/*Service service = readService(serviceName);
 		for(int i=0; i<service.getExternal().size(); i++){
 			if(service.getExternal().get(i).getName().equals(measureName))
 				measure = service.getExternal().get(i);
@@ -292,8 +377,9 @@ public class WSQRGenerator {
 			.put("StatisticalTestUsed", measure.getStatisticalTest())
 			.put("AccuracyLevel-Value", measure.getAccuracyLevel())
 			.put("AccuracyIndicatorUser-Name", measure.getAccuracyIndicator()));
-		json.put("InternalMeasureKind", measure.getMeasureKind());
-		return Response.status(200).entity(json).type("application/json").build();
+		json.put("InternalMeasureKind", measure.getMeasureKind());*/
+		ontology.close();
+		return Response.status(200).entity(new JSONObject().put("Measure", measure)).type("application/json").build();
 	}
 
 	@Path("/{service_name}/external/{measure_name}/{value_kind}")
@@ -302,11 +388,12 @@ public class WSQRGenerator {
 	public Response getExternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measureName,
 			@PathParam("value_kind") String valueKind) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
 		
 		System.out.println("GET external with vk: " + serviceName);
 		System.out.println("Measure: " + measureName);
-		ArrayList<Measure> measure = getExternalByKind(serviceName, valueKind);
-		JSONObject json = new JSONObject();
+		float measure = ontology.getMeasureValueForWebService(serviceName, measureName, valueKind);
+		/*JSONObject json = new JSONObject();
 		for(int i=0; i<measure.size(); i++) {
 			json.append("External", new JSONObject()
 			.put("MeasureName", measure.get(i).getName())
@@ -324,10 +411,12 @@ public class WSQRGenerator {
 				.put("AccuracyIndicatorUser-Name", measure.get(i).getAccuracyIndicator()))
 			.put("InternalMeasureKind", measure.get(i).getMeasureKind())
 			);	
-		}
-		return Response.status(200).entity(json).type("application/json").build();
+		}*/
+		ontology.close();
+		return Response.status(200).entity(new JSONObject().put("MeasureValue", measure)).type("application/json").build();
 	}
 
+	
 	@Path("/ontology")
 	@DELETE
 	public Response deleteOntology() {
@@ -342,16 +431,18 @@ public class WSQRGenerator {
 		}		
 		return Response.status(200).build();
 	}
-
+	
+	
 	@Path("/{service_name}/ontology")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createOntology(@PathParam("service_name") String serviceName) {
-		System.out.println("POST ontology: "+serviceName);
-		String ontology = createServiceOntology(serviceName);		
-		return Response.status(200).entity(ontology).build();
+	public Response createOntology(@PathParam("service_name") Service service) {
+		System.out.println("POST ontology: "+service.getName());
+		OntologyManager.createOntology(service);	
+		return Response.status(200).build();
 	}
-
+	
+	
 	@Path("/{service_name}/ontology")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -360,22 +451,44 @@ public class WSQRGenerator {
 		String ontology = OntologyManager.getOntology(serviceName);
 		return Response.status(200).entity(ontology).build();
 	}
-
+	
+	
 	@Path("/{service_name}/internal/{measure_name}/{validation_means}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("validation_means") String means, @PathParam("measure_name") String measure) {
-		addInternalValidationMeans(serviceName, measure, means);
+			@PathParam("validation_means") String means, @PathParam("measure_name") String measure,
+			String MeasureValueKind, String AccuracyIndicatorUsed, float AccuracyLevel,
+			String StatisticalTestUsed, float PValue, float StatisticalSignificanceLevel) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
+		System.out.println("POST internal: " + serviceName);
+		System.out.println("Validation Means: " + means);
+		
+		ontology.addValidationMeansToMeasure(serviceName, measure, MeasureValueKind, means, AccuracyIndicatorUsed,
+				AccuracyLevel, StatisticalTestUsed, PValue, StatisticalSignificanceLevel);
+		ontology.close();
+		//addInternalValidationMeans(serviceName, measure, means);
 		return Response.status(200).build();
 	}
-
+	
+	
 	@Path("/{service_name}/external/{measure_name}/{validation_means}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("validation_means") String means, @PathParam("measure_name") String measure) {
-		addExternalValidationMeans(serviceName, measure, means);
+			@PathParam("validation_means") String means, @PathParam("measure_name") String measure,
+			String MeasureValueKind, String AccuracyIndicatorUsed, float AccuracyLevel,
+			String StatisticalTestUsed, float PValue, float StatisticalSignificanceLevel) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
+		System.out.println("POST external: " + serviceName);
+		System.out.println("Validation Means: " + means);
+		
+		ontology.addValidationMeansToMeasure(serviceName, measure, MeasureValueKind, means, AccuracyIndicatorUsed,
+				AccuracyLevel, StatisticalTestUsed, PValue, StatisticalSignificanceLevel);
+		ontology.close();
+		//addExternalValidationMeans(serviceName, measure, means);
 		return Response.status(200).build();
 	}
 
@@ -383,17 +496,38 @@ public class WSQRGenerator {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure, @PathParam("validation_means") String means) {
-		addInternalValidationMeans(serviceName, measure, means);
+			@PathParam("measure_name") String measure, @PathParam("validation_means") String means,
+			String valueKind, String AccuracyIndicatorUsed,	float AccuracyLevel,
+			String StatisticalTestUsed, float PValue, float StatisticalSignificanceLevel) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
+		System.out.println("POST internal: " + serviceName);
+		System.out.println("Validation means: " + means);
+		
+		ontology.updateValidationMeansOfMeasure(serviceName, measure, valueKind, means, AccuracyIndicatorUsed,
+				AccuracyLevel, StatisticalTestUsed, PValue, StatisticalSignificanceLevel);
+		ontology.close();
+		//addInternalValidationMeans(serviceName, measure, means);
 		return Response.status(200).build();
 	}
-
+	
+	
 	@Path("/{service_name}/external/{measure_name}/{validation_means}")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure, @PathParam("validation_means") String means) {
-		addExternalValidationMeans(serviceName, measure, means);
+			@PathParam("measure_name") String measure, @PathParam("validation_means") String means,
+			String valueKind, String AccuracyIndicatorUsed, float AccuracyLevel,
+			String StatisticalTestUsed, float PValue, float StatisticalSignificanceLevel) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
+		System.out.println("POST internal: " + serviceName);
+		System.out.println("Validation means: " + means);
+		
+		ontology.updateValidationMeansOfMeasure(serviceName, measure, valueKind, means, AccuracyIndicatorUsed,
+				AccuracyLevel, StatisticalTestUsed, PValue, StatisticalSignificanceLevel);
+		ontology.close();
+		//addExternalValidationMeans(serviceName, measure, means);
 		return Response.status(200).build();
 	}
 	
@@ -401,8 +535,15 @@ public class WSQRGenerator {
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure) {
-		deleteInternalValidationMeans(serviceName, measure);
+			@PathParam("measure_name") String measure, @PathParam("validation_means") String means, String valueKind) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
+		System.out.println("DELETE internal: " + serviceName);
+		System.out.println("Validation means: " + means);
+		
+		ontology.deleteValidationMeansFromMeasure(serviceName, measure, valueKind);
+		ontology.close();
+		//deleteInternalValidationMeans(serviceName, measure);
 		return Response.status(200).build();
 	}
 	
@@ -410,12 +551,19 @@ public class WSQRGenerator {
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure) {
-		deleteExternalValidationMeans(serviceName, measure);
+			@PathParam("measure_name") String measure, @PathParam("validation_means") String means, String valueKind) {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+		
+		System.out.println("DELETE external: " + serviceName);
+		System.out.println("Validation means: " + means);
+		
+		ontology.deleteValidationMeansFromMeasure(serviceName, measure, valueKind);
+		ontology.close();
+		//deleteExternalValidationMeans(serviceName, measure);
 		return Response.status(200).build();
 	}
 	
-	@Path("/{service_name}/xml")
+	/*@Path("/{service_name}/xml")
 	@GET
 	@Consumes(MediaType.APPLICATION_XML)
 	public Response generateXML(@PathParam("service_name") String serviceName) {
@@ -522,15 +670,18 @@ public class WSQRGenerator {
 		JOptionPane.showMessageDialog(null, "Your WSQR_"+serviceName+".xml"+" file has been saved into folder: "+ end, "File Saved", JOptionPane.INFORMATION_MESSAGE);
  
 		return Response.status(200).build();
-	}
+	}*/
 
-	private String createServiceOntology(String serviceName) {
+	
+	
+	// ----------------------- METODI UTILIZZATI ---------------------------
+	/*private String createServiceOntology(String serviceName) {
 		Service service= readService(serviceName);
 		OntologyManager.createOntology(service);
 		return OntologyManager.getOntology(serviceName);
-	}
+	}*/
 	
-	private void prepareInternalJson(Service service, JSONObject json) {
+	/*private void prepareInternalJson(Service service, JSONObject json) {
 		json.put("Internal", new ArrayList());
 		for(int i=0; i<service.getInternal().size(); i++) {
 			json.append("Internal", new JSONObject()
@@ -547,9 +698,9 @@ public class WSQRGenerator {
 			.put("InternalMeasureKind", service.getInternal().get(i).getMeasureKind())
 			);	
 		}
-	}
+	}*/
 	
-	private void prepareExternalJson(Service service, JSONObject json) {
+	/*private void prepareExternalJson(Service service, JSONObject json) {
 		json.put("External", new ArrayList());
 		for(int i=0; i<service.getExternal().size(); i++) {
 			json.append("External", new JSONObject()
@@ -569,43 +720,47 @@ public class WSQRGenerator {
 			.put("InternalMeasureKind", service.getExternal().get(i).getMeasureKind())
 			);	
 		}
+	}*/
+	
+	private void prepareJson(ArrayList<String> measures, JSONObject json){
+		json.put("Measures", measures);
 	}
 	
-	private void deleteInternalValidationMeans(String serviceName, String measure) {
+	/*private void deleteInternalValidationMeans(String serviceName, String measure) {
 		Service service = readService(serviceName);
 		for(int i=0; i<service.getInternal().size(); i++) {
 			if(service.getInternal().get(i).equals(measure))
 				service.getInternal().get(i).setValidationMeans("");
 		}
-	}
+	}*/
 	
-	private void deleteExternalValidationMeans(String serviceName, String measure) {
+	/*private void deleteExternalValidationMeans(String serviceName, String measure) {
 		Service service = readService(serviceName);
 		for(int i=0; i<service.getExternal().size(); i++) {
 			if(service.getExternal().get(i).equals(measure))
 				service.getExternal().get(i).setValidationMeans("");
 		}
-	}
+	}*/
 	
-	private void addInternalValidationMeans(String serviceName, String measure, String means) {
+	/*private void addInternalValidationMeans(String serviceName, String measure, String means) {
 		Service service = readService(serviceName);
 		for(int i=0; i<service.getInternal().size(); i++) {
 			if(service.getInternal().get(i).equals(measure)) {
 				service.getInternal().get(i).setValidationMeans(means);
 			}
 		}
-	}
+	}*/
 	
-	private void addExternalValidationMeans(String serviceName, String measure, String means) {
+	/*private void addExternalValidationMeans(String serviceName, String measure, String means) {
 		Service service = readService(serviceName);
 		for(int i=0; i<service.getExternal().size(); i++) {
 			if(service.getExternal().get(i).equals(measure)) {
 				service.getExternal().get(i).setValidationMeans(means);
 			}
 		}
-	}
+	}*/
 	
-	private void addInternal(String serviceName, String measure) {
+	/*private void addInternal(String serviceName, String measure) {
 		File f=new File(servicesDirectory+serviceName);
 		Service service=null;
 		if(!f.exists()){
@@ -620,9 +775,9 @@ public class WSQRGenerator {
 		}
 		service.addInternalMeasure(measure);
 		writeService(serviceName, service);
-	}
+	}*/
 	
-	private void addExternal(String serviceName, String measure) {
+	/*private void addExternal(String serviceName, String measure) {
 		File f=new File(servicesDirectory+serviceName);
 		Service service=null;
 		if(!f.exists()) {
@@ -637,45 +792,45 @@ public class WSQRGenerator {
 		}
 		service.addExternalMeasure(measure);
 		writeService(serviceName, service);
-	}
+	}*/
 	
-	private void deleteInternal(String serviceName, String measureName) {
+	/*private void deleteInternal(String serviceName, String measureName) {
 		Service service = readService(serviceName);
 		for(int i=0;i<service.getInternal().size();i++) {
 			if(service.getInternal().get(i).getName().equals(measureName)) {
 				service.getInternal().get(i).setContent("");
 			}
 		}
-	}
+	}*/
 	
-	private void deleteExternal(String serviceName, String measureName) {
+	/*private void deleteExternal(String serviceName, String measureName) {
 		Service service = readService(serviceName);
 		for(int i=0;i<service.getExternal().size();i++) {
 			if(service.getExternal().get(i).getName().equals(measureName)) {
 				service.getExternal().get(i).setContent("");
 			}
 		}
-	}
+	}*/
 	
-	private void updateInternal(String serviceName, String oldName, String newName) {
+	/*private void updateInternal(String serviceName, String oldName, String newName) {
 		Service service = readService(serviceName);
 		for(int i=0;i<service.getInternal().size();i++) {
 			if(service.getInternal().get(i).getName().equals(oldName)) {
 				service.getInternal().get(i).setContent(newName);
 			}
 		}
-	}
+	}*/
 	
-	private void updateExternal(String serviceName, String oldName, String newName) {
+	/*private void updateExternal(String serviceName, String oldName) {
 		Service service = readService(serviceName);
 		for(int i=0;i<service.getExternal().size();i++) {
 			if(service.getExternal().get(i).getName().equals(oldName)) {
-				service.getExternal().get(i).setContent(newName);
+				service.getExternal().get(i).setContent(oldName);
 			}
 		}
-	}
+	}*/
 
-	private ArrayList<Measure> getExternalByKind(String serviceName, String valueKind) {
+	/*private ArrayList<Measure> getExternalByKind(String serviceName, String valueKind) {
 		Service service = readService(serviceName);
 		ArrayList<Measure> measures = new ArrayList<Measure>();
 		for(int i=0; i<service.getExternal().size(); i++) {
@@ -683,9 +838,9 @@ public class WSQRGenerator {
 				measures.add(service.getExternal().get(i));
 		} 
 			return measures;
-	}
+	}*/
 
-	private ArrayList<Measure> getInternalByKind(String serviceName, String valueKind) {
+	/*private ArrayList<Measure> getInternalByKind(String serviceName, String valueKind) {
 		Service service = readService(serviceName);
 		ArrayList<Measure> measures = new ArrayList<Measure>();
 		for(int i=0; i<service.getInternal().size(); i++) {
@@ -693,9 +848,9 @@ public class WSQRGenerator {
 				measures.add(service.getInternal().get(i));
 		}
 			return measures;
-	}
+	}*/
 	
-	private Service readService(String serviceName) {
+	/*private Service readService(String serviceName) {
 		File f=new File(servicesDirectory + serviceName);
 		System.out.println("readService:" + f.getAbsolutePath());
 		ObjectInputStream ois;
@@ -710,9 +865,9 @@ public class WSQRGenerator {
 			e.printStackTrace();
 		}
 		return service;	
-	}
+	}*/
 	
-	private void writeService(String serviceName, Service service) {
+	/*private void writeService(String serviceName, Service service) {
 		File f = new File(servicesDirectory+serviceName);
 		System.out.println("WriteFile: "+f.getAbsolutePath());
 		if(!f.exists()){
@@ -732,5 +887,5 @@ public class WSQRGenerator {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-	}
+	}*/
 }

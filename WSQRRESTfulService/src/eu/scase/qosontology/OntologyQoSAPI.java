@@ -3,11 +3,16 @@ package eu.scase.qosontology;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
+
 import org.jdom2.Document;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+
+import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.sparql.engine.http.Service;
 
 /**
  * Provides an API for the Web Services Quality ontology. Allows adding/deleting and updating web services and their
@@ -27,11 +32,25 @@ public class OntologyQoSAPI {
 	 */
 	public OntologyQoSAPI() {
 		
-		String filename = "/Applications/eclipse-Luna/workspace/WSQRRESTfulService/ontology/WSQuality.owl";
+		String filename = "/WSQRRESTfulService/ontology/WSQuality.owl"; //se non funziona "/ontology/WSQuality.owl";
 		String SOURCE = "http://www.owl-ontologies.com/Ontology1406103978.owl";
 		ontology = new OntologyJenaAPI(filename, SOURCE);
 	}
-
+	
+	//DA SISTEMARE
+	/**
+	 * Gets a web service from the ontology. If the web service doesn't exist, nothing happens.
+	 * 
+	 * @param WebServiceName
+	 */
+	public Service getWebService(String WebServiceName) {
+		//ontology.getIndividual("WebService", WebServiceName);
+		
+		//ontology.getIndividualsGivenIndividualAndProperty(WebServiceName, "has_measure");
+		Individual x = ontology.getIndividualService(WebServiceName);
+		
+		return new Service();
+	}
 	/**
 	 * Adds a new web service to the ontology. If the web service already exists, it is not added.
 	 * 
@@ -208,7 +227,7 @@ public class OntologyQoSAPI {
 	 * @param document is the document created in which user wrote
 	 * @param WebServiceName the name of the web service, which is used to generate an XML document
 	 */
-	public void generateXML(String WebServiceName, Document document) {
+	/*public void generateXML(String WebServiceName, Document document) {
 		try {
 			//Create the XMLOutputter Object
 			XMLOutputter outputter = new XMLOutputter(); 
@@ -229,7 +248,7 @@ public class OntologyQoSAPI {
 		int s = pathJar.lastIndexOf("/");
 		String end = pathJar.substring(0, s);
 		JOptionPane.showMessageDialog(null, "Your WSQR_"+ WebServiceName +".xml"+" file has been saved into folder: "+ end, "File Saved", JOptionPane.INFORMATION_MESSAGE);
-	}
+	}*/
 	
 	/**
 	 * Performs a query on the ontology. It receives a query string in SPARQL format and adds to it the most common
