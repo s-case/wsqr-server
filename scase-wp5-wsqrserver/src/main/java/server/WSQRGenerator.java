@@ -85,6 +85,7 @@ public class WSQRGenerator {
 	@Path("/{service_name}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response addWebService(@PathParam("service_name") String serviceName, String service) throws JSONException {
 		// connection to the ontology
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
@@ -94,10 +95,9 @@ public class WSQRGenerator {
 		// add web service
 		ontology.addWebService(serviceName);
 		JSONObject json = new JSONObject();
-		json.put("message", "200 OK" + "{" + "		serviceName:	" + serviceName + ";" + "}");
-		Response.ok(json);
+		json.put("serviceName", serviceName);
 		ontology.close();
-		return Response.status(200).entity(json).build();
+		return Response.status(200).entity(json.toString()).build();
 	}
 
 	@Path("/{service_name}")
