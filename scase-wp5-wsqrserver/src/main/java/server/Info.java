@@ -42,5 +42,4 @@ public class Info {
 		}
 		return Response.status(200).entity(jsonResponse).type("application/json").build();
 	}
-
 }

@@ -1,7 +1,6 @@
 package server;
 
 import java.util.ArrayList;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -12,20 +11,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import ontology.OntologyManager;
-
 import com.hp.hpl.jena.query.ResultSet;
-
 import eu.scase.qosontology.OntologyQoSAPI;
 
 /**
  * Provides the WSQR Restful set of methods for all the WSQR operations in the API.
  * 
- * @author Davide Tosi, Carola Bianchi, Marco Compagnoni and Matteo Tegnenti
+ * @author Carola Bianchi and Davide Tosi.
  */
 
 /*
@@ -82,7 +77,7 @@ public class WSQRGenerator {
 		return Response.status(200).entity("Hello, World!!").build();
 	}
 
-	@Path("/{service_name}")
+	@Path("/{service_name}/add")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -100,8 +95,10 @@ public class WSQRGenerator {
 		return Response.status(200).entity(json.toString()).build();
 	}
 
-	@Path("/{service_name}")
+	@Path("/{service_name}/delete")
 	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteWebService(@PathParam("service_name") String serviceName) {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
@@ -115,6 +112,7 @@ public class WSQRGenerator {
 
 	@Path("/{service_name}/measures")
 	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllMeasuresOfWebService(@PathParam("service_name") String serviceName) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
@@ -131,12 +129,13 @@ public class WSQRGenerator {
 
 		ontology.close();
 
-		return Response.status(200).entity(json).type("application/json").build();
+		return Response.status(200).entity(json.toString()).type("application/json").build();
 	}
 
-	@Path("/{service_name}/internal/{measure_name}")
+	@Path("/{service_name}/internal/{measure_name}/delete")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteInternalMeasureOfWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, String valueKind) {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
@@ -148,9 +147,10 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/external/{measure_name}")
+	@Path("/{service_name}/external/{measure_name}/delete")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteExternalMeasureOfWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, String valueKind) {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
@@ -162,9 +162,10 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/internal/{measure_name}")
+	@Path("/{service_name}/internal/{measure_name}/update")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateInternalMeasureOfWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, String valueKind, float value) {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
@@ -176,9 +177,10 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/external/{measure_name}")
+	@Path("/{service_name}/external/{measure_name}/update")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateExternalMeasureOfWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, String valueKind, float value) {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
@@ -190,10 +192,11 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/internal")
+	@Path("/{service_name}/internal/{measure_name}/add")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addInternalMeasure(@PathParam("service_name") String serviceName, String measure,
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addInternalMeasure(@PathParam("service_name") String serviceName, @PathParam("service_name") String measure,
 			String measureKind, float measureValue) {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
@@ -206,10 +209,11 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/external")
+	@Path("/{service_name}/external/{measure_name}/add")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addExternalMeasure(@PathParam("service_name") String serviceName, String measure,
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addExternalMeasure(@PathParam("service_name") String serviceName, @PathParam("service_name") String measure,
 			String measureKind, float measureValue) {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
@@ -225,6 +229,7 @@ public class WSQRGenerator {
 	@Path("/{service_name}/internal/{measure_position}")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getInternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_position") int measurePos) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
@@ -235,12 +240,13 @@ public class WSQRGenerator {
 		String measure = ontology.getMeasureOfWebService(serviceName, measurePos);
 
 		ontology.close();
-		return Response.status(200).entity(new JSONObject().put("Measure", measure)).type("application/json").build();
+		return Response.status(200).entity(new JSONObject().put("Measure", measure).toString()).type("application/json").build();
 	}
 
 	@Path("/{service_name}/internal/{measure_name}/{value_kind}")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getInternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measureName, @PathParam("value_kind") String valueKind)
 			throws JSONException {
@@ -252,13 +258,14 @@ public class WSQRGenerator {
 		float measure = ontology.getMeasureValueForWebService(serviceName, measureName, valueKind);
 
 		ontology.close();
-		return Response.status(200).entity(new JSONObject().put("MeasureValue", measure)).type("application/json")
+		return Response.status(200).entity(new JSONObject().put("MeasureValue", measure).toString()).type("application/json")
 				.build();
 	}
 
 	@Path("/{service_name}/external/{measure_position}")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getExternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_position") int measurePos) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
@@ -269,12 +276,13 @@ public class WSQRGenerator {
 		String measure = ontology.getMeasureOfWebService(serviceName, measurePos);
 
 		ontology.close();
-		return Response.status(200).entity(new JSONObject().put("Measure", measure)).type("application/json").build();
+		return Response.status(200).entity(new JSONObject().put("Measure", measure).toString()).type("application/json").build();
 	}
 
-	@Path("/{service_name}/external/{measure_name}/{value_kind}")
+	@Path("/{service_name}/external/{measure_name}/{value_kind}/get")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getExternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measureName, @PathParam("value_kind") String valueKind)
 			throws JSONException {
@@ -285,7 +293,7 @@ public class WSQRGenerator {
 		float measure = ontology.getMeasureValueForWebService(serviceName, measureName, valueKind);
 
 		ontology.close();
-		return Response.status(200).entity(new JSONObject().put("MeasureValue", measure)).type("application/json")
+		return Response.status(200).entity(new JSONObject().put("MeasureValue", measure).toString()).type("application/json")
 				.build();
 	}
 
@@ -319,12 +327,13 @@ public class WSQRGenerator {
 	public Response getOntology(@PathParam("service_name") String serviceName) {
 		System.out.println("GET ontology: " + serviceName);
 		String ontology = OntologyManager.getOntology(serviceName);
-		return Response.status(200).entity(ontology).build();
+		return Response.status(200).entity(ontology.toString()).build();
 	}
 
-	@Path("/{service_name}/internal/{measure_name}/{validation_means}")
+	@Path("/{service_name}/internal/{measure_name}/{validation_means}/add")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response addInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("validation_means") String means, @PathParam("measure_name") String measure,
 			String MeasureValueKind, String AccuracyIndicatorUsed, float AccuracyLevel, String StatisticalTestUsed,
@@ -341,9 +350,10 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/external/{measure_name}/{validation_means}")
+	@Path("/{service_name}/external/{measure_name}/{validation_means}/add")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response addExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("validation_means") String means, @PathParam("measure_name") String measure,
 			String MeasureValueKind, String AccuracyIndicatorUsed, float AccuracyLevel, String StatisticalTestUsed,
@@ -360,9 +370,10 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/internal/{measure_name}/{validation_means}")
+	@Path("/{service_name}/internal/{measure_name}/{validation_means}/update")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, @PathParam("validation_means") String means, String valueKind,
 			String AccuracyIndicatorUsed, float AccuracyLevel, String StatisticalTestUsed, float PValue,
@@ -379,9 +390,10 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/external/{measure_name}/{validation_means}")
+	@Path("/{service_name}/external/{measure_name}/{validation_means}/update")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, @PathParam("validation_means") String means, String valueKind,
 			String AccuracyIndicatorUsed, float AccuracyLevel, String StatisticalTestUsed, float PValue,
@@ -398,9 +410,10 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/internal/{measure_name}/{validation_means}")
+	@Path("/{service_name}/internal/{measure_name}/{validation_means}/delete")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, @PathParam("validation_means") String means, String valueKind) {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
@@ -414,9 +427,10 @@ public class WSQRGenerator {
 		return Response.status(200).build();
 	}
 
-	@Path("/{service_name}/external/{measure_name}/{validation_means}")
+	@Path("/{service_name}/external/{measure_name}/{validation_means}/delete")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
 			@PathParam("measure_name") String measure, @PathParam("validation_means") String means, String valueKind) {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
