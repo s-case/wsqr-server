@@ -90,7 +90,7 @@ public class WSQRClient {
 		System.out.println(initOutput.toString(3).replaceAll("\\\\/", "/"));
 
 		// Add a new web service
-		String webServiceAddress = "http://localhost:8022/services/ArtistRegistryWS";
+		String webServiceAddress = "http://localhost:8022/services/ArtistRegistryWS/add";
 		JSONObject webServiceInput = new JSONObject();
 		webServiceInput.put("service_name", "ArtistRegistryWS");
 		System.out.println("\nPOST " + webServiceAddress);
