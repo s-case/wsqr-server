@@ -9,6 +9,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.json.JSONException;
@@ -81,16 +82,27 @@ public class WSQRGenerator {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addWebService(@PathParam("service_name") String serviceName, String service) throws JSONException {
+	public Response addWebService(@PathParam("service_name") String serviceName, String request) throws JSONException {
 		// connection to the ontology
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
 		System.out.println("POST service_name: " + serviceName);
 
+		// Get the name of the service
+		String service_name;
+		// Option 1: from the path parameters
+		// service_name = serviceName;
+		// Option 2: from the json parameters
+		JSONObject jsonRequest = new JSONObject(request);
+		if (!jsonRequest.has("service_name"))
+			throw new WebApplicationException(Response.status(422).entity("Please include a \"phrase\" JSON key")
+					.type("text/plain").build());
+		service_name = jsonRequest.getString("service_name");
+		
 		// add web service
-		ontology.addWebService(serviceName);
+		ontology.addWebService(service_name);
 		JSONObject json = new JSONObject();
-		json.put("serviceName", serviceName);
+		json.put("service_name", service_name);
 		ontology.close();
 		return Response.status(200).entity(json.toString()).build();
 	}
