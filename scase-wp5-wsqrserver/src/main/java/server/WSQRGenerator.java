@@ -274,10 +274,7 @@ public class WSQRGenerator {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 		System.out.println("GET internal :" + serviceName);
 		System.out.println("MeasurePosition: " + measurePos);
-<<<<<<< HEAD
-=======
-		
->>>>>>> origin/master
+
 		JSONObject jsonRequest = new JSONObject(request);
 		if (!jsonRequest.has("service_name"))
 			throw new WebApplicationException(Response.status(422).entity("Please include a \"phrase\" JSON key")
