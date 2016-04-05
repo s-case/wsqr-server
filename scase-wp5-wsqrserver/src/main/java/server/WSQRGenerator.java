@@ -233,22 +233,45 @@ public class WSQRGenerator {
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+<<<<<<< HEAD
 	public Response deleteWebService(@PathParam("service_name") String serviceName, String request) throws JSONException {
 		System.out.println("mi sto connettendo all'ontologia");
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
 		System.out.println("DELETE service_name:" + serviceName);
 		
+=======
+	public Response addInternalMeasure(@PathParam("service_name") String serviceName,
+			@PathParam("measure_name") String measure, String request) throws JSONException {
+		OntologyQoSAPI ontology = new OntologyQoSAPI();
+
+		System.out.println("POST internal:" + serviceName);
+		System.out.println("Measure: " + measure);
+
+>>>>>>> origin/master
 		JSONObject jsonRequest = new JSONObject(request);
 		if (!jsonRequest.has("service_name"))
 			throw new WebApplicationException(Response.status(422).entity("Please include a \"phrase\" JSON key")
 					.type("text/plain").build());
+<<<<<<< HEAD
 		
 		ontology.deleteWebService(serviceName);
 		
 		JSONObject json = new JSONObject();
 		json.put("service_name", serviceName);
 		ontology.close();
+=======
+		String measureKind = jsonRequest.getString("measure_kind");
+		double measureValue = jsonRequest.getDouble("measure_value");
+
+		ontology.addMeasureToWebService(serviceName, measure, measureKind, (float) measureValue);
+		ontology.close();
+		JSONObject json = new JSONObject();
+		json.put("service_name", serviceName);
+		json.put("measure_name", measure);
+
+		// addInternal(serviceName, measure);
+>>>>>>> origin/master
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
