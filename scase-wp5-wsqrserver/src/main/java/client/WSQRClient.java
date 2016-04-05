@@ -96,7 +96,6 @@ public class WSQRClient {
 		System.out.println("\nPOST " + webServiceAddress);
 		JSONObject phraseOutput = performJsonPostRequest(webServiceAddress, webServiceInput);
 		System.out.println(phraseOutput.toString(3).replaceAll("\\\\/", "/"));
-<<<<<<< HEAD
 		
 		// Add internal measure to web service
 		String intaddress = "http://localhost:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/add";
@@ -266,19 +265,5 @@ public class WSQRClient {
 		System.out.println("\nGET " + address);
 		JSONObject input = performJsonGetRequest(address);
 		System.out.println(input.toString(3).replaceAll("\\\\/", "/"));*/
-		
-=======
-
-		// Add a new internal measure value to the web service
-		String address = "http://localhost:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/add";
-		JSONObject input = new JSONObject();
-		input.put("service_name", "ArtistRegistryWS");
-		input.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
-		input.put("measure_kind", "Average");
-		input.put("measure_value", "2");
-		System.out.println("\nPOST " + webServiceAddress);
-		JSONObject output = performJsonPostRequest(address, input);
-		System.out.println(output.toString(3).replaceAll("\\\\/", "/"));
->>>>>>> origin/master
 	}
 }
