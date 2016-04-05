@@ -265,6 +265,5 @@ public class WSQRClient {
 		System.out.println("\nGET " + address);
 		JSONObject input = performJsonGetRequest(address);
 		System.out.println(input.toString(3).replaceAll("\\\\/", "/"));*/
-		
 	}
 }
