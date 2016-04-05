@@ -231,19 +231,13 @@ public class WSQRGenerator {
 	
 	@Path("/{service_name}/delete")
 	@DELETE
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteWebService(@PathParam("service_name") String serviceName, String request) throws JSONException {
+	public Response deleteWebService(@PathParam("service_name") String serviceName) throws JSONException {
 		System.out.println("mi sto connettendo all'ontologia");
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
 		System.out.println("DELETE service_name:" + serviceName);
 		
-		JSONObject jsonRequest = new JSONObject(request);
-		if (!jsonRequest.has("service_name"))
-			throw new WebApplicationException(Response.status(422).entity("Please include a \"phrase\" JSON key")
-					.type("text/plain").build());
-
 		ontology.deleteWebService(serviceName);
 		
 		JSONObject json = new JSONObject();

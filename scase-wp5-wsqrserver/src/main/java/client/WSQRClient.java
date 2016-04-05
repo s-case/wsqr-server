@@ -77,6 +77,32 @@ public class WSQRClient {
 	}
 
 	/**
+	 * Performs a DELETE request on the server.
+	 * 
+	 * @param address the address of the request.
+	 * @param credentials the username and the password to be added to the request header.
+	 * @return a {@link org.codehaus.jettison.json.JSONObject JSONObject} containing the response body, if the request
+	 *         is correct, else an exception is thrown.
+	 * @throws JSONException when the request or the credentials are wrong.
+	 */
+	public static JSONObject performJsonDeleteRequest(String address, String... credentials) throws JSONException {
+		ClientConfig clientConfig = new DefaultClientConfig();
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+		Client client = Client.create(clientConfig);
+
+		WebResource webResource = client.resource(address);
+		ClientResponse response = webResource.accept("application/json").type("application/json")
+				.delete(ClientResponse.class);
+
+		if (response.getStatus() != 200) {
+			throw new RuntimeException(response.getStatus() + " Error: " + response.getEntity(String.class));
+		}
+
+		String stringoutput = response.getEntity(String.class);
+		return new JSONObject(stringoutput);
+	}
+
+	/**
 	 * Performs request on the server.
 	 * 
 	 * @param args unused parameter.
@@ -253,12 +279,12 @@ public class WSQRClient {
 		System.out.println(extvalupoutput.toString(3).replaceAll("\\\\/", "/"));*/
 		
 		// Delete a web service
-		/*String address = "http://localhost:8022/services/ArtistRegistryWS/delete";
+		String address = "http://localhost:8022/services/ArtistRegistryWS/delete";
 		JSONObject input = new JSONObject();
 		input.put("service_name", "ArtistRegistryWS");
-		System.out.println("\nPOST " + address);
-		JSONObject output = performJsonPostRequest(address, input);
-		System.out.println(output.toString(3).replaceAll("\\\\/", "/"));*/
+		System.out.println("\nDELETE " + address);
+		JSONObject output = performJsonDeleteRequest(address);
+		System.out.println(output.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Get all measures of web service
 		/*String address = "http://localhost:8022/services/ArtistRegistryWS/measures";
