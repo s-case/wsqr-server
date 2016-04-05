@@ -239,10 +239,9 @@ public class WSQRGenerator {
 		System.out.println("DELETE service_name:" + serviceName);
 		
 		ontology.deleteWebService(serviceName);
-		
+		ontology.close();
 		JSONObject json = new JSONObject();
 		json.put("service_name", serviceName);
-		ontology.close();
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
@@ -273,10 +272,12 @@ public class WSQRGenerator {
 	public Response getInternalMeasure(@PathParam("service_name") String serviceName,
 			@PathParam("measure_position") int measurePos, String request) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
-
 		System.out.println("GET internal :" + serviceName);
 		System.out.println("MeasurePosition: " + measurePos);
+<<<<<<< HEAD
+=======
 		
+>>>>>>> origin/master
 		JSONObject jsonRequest = new JSONObject(request);
 		if (!jsonRequest.has("service_name"))
 			throw new WebApplicationException(Response.status(422).entity("Please include a \"phrase\" JSON key")
