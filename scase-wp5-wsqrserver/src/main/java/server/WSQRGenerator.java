@@ -267,18 +267,12 @@ public class WSQRGenerator {
 	
 	@Path("/{service_name}/internal/{measure_position}/get")
 	@GET
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getInternalMeasure(@PathParam("service_name") String serviceName,
-			@PathParam("measure_position") int measurePos, String request) throws JSONException {
+			@PathParam("measure_position") int measurePos) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 		System.out.println("GET internal :" + serviceName);
 		System.out.println("MeasurePosition: " + measurePos);
-
-		JSONObject jsonRequest = new JSONObject(request);
-		if (!jsonRequest.has("service_name"))
-			throw new WebApplicationException(Response.status(422).entity("Please include a \"phrase\" JSON key")
-					.type("text/plain").build());
 
 		String measure = ontology.getMeasureOfWebService(serviceName, measurePos);
 		ontology.close();
