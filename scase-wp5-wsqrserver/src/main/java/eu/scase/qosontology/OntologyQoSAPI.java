@@ -20,7 +20,7 @@ public class OntologyQoSAPI {
 	 * you do <u><b>NOT</b></u> call {@link #close()}.
 	 */
 	public OntologyQoSAPI() {
-		
+		//String filename = "/Users/Carol/Documents/Università/Tirocinio/wsqr-server/scase-wp5-wsqrserver/ontology/WSQuality.owl";
 		String filename = "home/ubuntu/WSQuality.owl";
 		String SOURCE = "http://www.owl-ontologies.com/Ontology1406103978.owl";
 		ontology = new OntologyJenaAPI(filename, SOURCE);
@@ -128,7 +128,7 @@ public class OntologyQoSAPI {
 		deleteMeasureOfWebService(WebServiceName, MeasureName, MeasureValueKind);
 		addMeasureToWebService(WebServiceName, MeasureName, MeasureValueKind, MeasureValue);
 	}
-
+	
 	/**
 	 * Adds validation means to a measure.
 	 * 
@@ -153,6 +153,15 @@ public class OntologyQoSAPI {
 		ontology.addPropertyToIndividual(individualName, "StatisticalTestUsed", StatisticalTestUsed);
 		ontology.addPropertyToIndividual(individualName, "PValue", PValue);
 		ontology.addPropertyToIndividual(individualName, "StatisticalSignificanceLevel", StatisticalSignificanceLevel);
+	}
+	
+	public void addInternalValidationMeansToMeasure(String WebServiceName, String MeasureName, String MeasureValueKind,
+			String MeasureValidationMeans, String AttributeName, String AttributeValue, String InternalMeasureKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		ontology.addPropertyToIndividual(individualName, "MeasureValidationMeans", MeasureValidationMeans);
+		ontology.addPropertyToIndividual(individualName, "AttributeName", AttributeName);
+		ontology.addPropertyToIndividual(individualName, "AttributeValue", AttributeValue);
+		ontology.addPropertyToIndividual(individualName, "InternalMeasureKind", InternalMeasureKind);
 	}
 
 	/**
@@ -196,6 +205,12 @@ public class OntologyQoSAPI {
 				AccuracyLevel, StatisticalTestUsed, PValue, StatisticalSignificanceLevel);
 	}
 	
+	public void updateInternalValidationMeansOfMeasure(String WebServiceName, String MeasureName, String MeasureValueKind,
+			String MeasureValidationMeans, String AttributeName, String AttributeValue, String InternalMeasureKind) {
+		deleteValidationMeansFromMeasure(WebServiceName, MeasureName, MeasureValueKind);
+		addInternalValidationMeansToMeasure(WebServiceName, MeasureName, MeasureValueKind, MeasureValidationMeans,
+				AttributeName, AttributeValue, InternalMeasureKind);
+	}
 	/**
 	 * This methods retrieves all the measurements in an XML document, which is traceable with the path properties.
 	 * 
