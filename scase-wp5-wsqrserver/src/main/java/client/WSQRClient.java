@@ -177,11 +177,7 @@ public class WSQRClient {
 		//System.out.println(extvaloutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Update internal measure to web service
-<<<<<<< HEAD
 		//String intupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/update";
-=======
-		//String intupaddress = "http://localhost:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/update";
->>>>>>> origin/master
 		//JSONObject intupinput = new JSONObject();
 		//intupinput.put("service_name", "ArtistRegistryWS");
 		//intupinput.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
@@ -192,11 +188,7 @@ public class WSQRClient {
 		//System.out.println(intupoutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Update external measure to web service
-<<<<<<< HEAD
 		//String extupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/update";
-=======
-		//String extupaddress = "http://localhost:8022/services/ArtistRegistryWS/external/Successability_SU/update";
->>>>>>> origin/master
 		//JSONObject exupinput = new JSONObject();
 		//exupinput.put("service_name", "ArtistRegistryWS");
 		//exupinput.put("measure_name", "Successability_SU");
@@ -207,11 +199,7 @@ public class WSQRClient {
 		//System.out.println(exupoutput.toString(3).replaceAll("\\\\/", "/"));		
 		
 		// Update internal validation means to web service
-<<<<<<< HEAD
 		/*String intvalupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/Dynamic_Coupling_Between_Objects_DCBO/EmpiricalValidation/update";
-=======
-		/*String intvalupaddress = "http://localhost:8022/services/ArtistRegistryWS/internal/Dynamic_Coupling_Between_Objects_DCBO/EmpiricalValidation/update";
->>>>>>> origin/master
 		JSONObject intvalupinput = new JSONObject();
 		intvalupinput.put("service_name", "ArtistRegistryWS");
 		intvalupinput.put("measure_name", "Dynamic_Coupling_Between_Objects_DCBO");
