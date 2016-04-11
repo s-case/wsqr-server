@@ -110,13 +110,13 @@ public class WSQRClient {
 	 */
 	public static void main(String[] args) throws JSONException {
 		// Get info about the web service
-		String initAddress = "http://localhost:8022/";
+		String initAddress = "http://109.231.121.200:8022/";
 		System.out.println("GET " + initAddress);
 		JSONObject initOutput = performJsonGetRequest(initAddress);
 		System.out.println(initOutput.toString(3).replaceAll("\\\\/", "/"));
 
 		// Add a new web service
-		String webServiceAddress = "http://localhost:8022/services/ArtistRegistryWS/add";
+		String webServiceAddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/add";
 		JSONObject webServiceInput = new JSONObject();
 		webServiceInput.put("service_name", "ArtistRegistryWS");
 		System.out.println("\nPOST " + webServiceAddress);
@@ -124,7 +124,7 @@ public class WSQRClient {
 		System.out.println(phraseOutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Add internal measure to web service
-		String intaddress = "http://localhost:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/add";
+		String intaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/add";
 		JSONObject internal = new JSONObject();
 		internal.put("service_name", "ArtistRegistryWS");
 		internal.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
@@ -135,18 +135,18 @@ public class WSQRClient {
 		System.out.println(intoutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Add external measure to web service
-		String extaddress = "http://localhost:8022/services/ArtistRegistryWS/external/Successability_SU/add";
-		JSONObject external = new JSONObject();
-		external.put("service_name", "ArtistRegistryWS");
-		external.put("measure_name", "Successability_SU");
-		external.put("measure_kind", "Raw");
-		external.put("measure_value", "0.998");
-		System.out.println("\nPOST " + extaddress);
-		JSONObject extoutput = performJsonPostRequest(extaddress, external);
-		System.out.println(extoutput.toString(3).replaceAll("\\\\/", "/"));
+		//String extaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/add";
+		//JSONObject external = new JSONObject();
+		//external.put("service_name", "ArtistRegistryWS");
+		//external.put("measure_name", "Successability_SU");
+		//external.put("measure_kind", "Raw");
+		//external.put("measure_value", "0.998");
+		//System.out.println("\nPOST " + extaddress);
+		//JSONObject extoutput = performJsonPostRequest(extaddress, external);
+		//System.out.println(extoutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Add internal validation means to web service
-		/*String intvaladdress = "http://localhost:8022/services/ArtistRegistryWS/internal/Dynamic_Coupling_Between_Objects_DCBO/AxiomaticApproach/add";
+		/*String intvaladdress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/Dynamic_Coupling_Between_Objects_DCBO/AxiomaticApproach/add";
 		JSONObject intvalinput = new JSONObject();
 		intvalinput.put("service_name", "ArtistRegistryWS");
 		intvalinput.put("measure_name", "Dynamic_Coupling_Between_Objects_DCBO");
@@ -160,96 +160,45 @@ public class WSQRClient {
 		System.out.println(intvaloutput.toString(3).replaceAll("\\\\/", "/"));*/
 		
 		// Add external validation means to web service
-		String extvaladdress = "http://localhost:8022/services/ArtistRegistryWS/external/Successability_SU/EmpiricalValidation/add";
-		JSONObject extvalinput = new JSONObject();
-		extvalinput.put("service_name", "ArtistRegistryWS");
-		extvalinput.put("measure_name", "Successability_SU");
-		extvalinput.put("validation_means", "EmpiricalValidation");
-		extvalinput.put("measure_value_kind", "Raw");
-		extvalinput.put("accuracy_indicator_used", "R^2");
-		extvalinput.put("accuracy_level", (float) 0.923);
-		extvalinput.put("statistical_test_used", "T-test");
-		extvalinput.put("p_value", (float) 0.005);
-		extvalinput.put("statistical_significance_level", (float) 0.8);
-		System.out.println("\nPOST " + extvaladdress);
-		JSONObject extvaloutput = performJsonPostRequest(extvaladdress, extvalinput);
-		System.out.println(extvaloutput.toString(3).replaceAll("\\\\/", "/"));
+		//String extvaladdress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/EmpiricalValidation/add";
+		//JSONObject extvalinput = new JSONObject();
+		//extvalinput.put("service_name", "ArtistRegistryWS");
+		//extvalinput.put("measure_name", "Successability_SU");
+		//extvalinput.put("validation_means", "EmpiricalValidation");
+		//extvalinput.put("measure_value_kind", "Raw");
+		//extvalinput.put("accuracy_indicator_used", "R^2");
+		//extvalinput.put("accuracy_level", (float) 0.923);
+		//extvalinput.put("statistical_test_used", "T-test");
+		//extvalinput.put("p_value", (float) 0.005);
+		//extvalinput.put("statistical_significance_level", (float) 0.8);
+		//System.out.println("\nPOST " + extvaladdress);
+		//JSONObject extvaloutput = performJsonPostRequest(extvaladdress, extvalinput);
+		//System.out.println(extvaloutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Update internal measure to web service
-		String intupaddress = "http://localhost:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/update";
-		JSONObject intupinput = new JSONObject();
-		intupinput.put("service_name", "ArtistRegistryWS");
-		intupinput.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
-		intupinput.put("measure_kind", "Average");
-		intupinput.put("measure_value", "3.0");
-		System.out.println("\nPOST " + intupaddress);
-		JSONObject intupoutput = performJsonPostRequest(intupaddress, intupinput);
-		System.out.println(intupoutput.toString(3).replaceAll("\\\\/", "/"));
+		//String intupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/update";
+		//JSONObject intupinput = new JSONObject();
+		//intupinput.put("service_name", "ArtistRegistryWS");
+		//intupinput.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
+		//intupinput.put("measure_kind", "Average");
+		//intupinput.put("measure_value", "3.0");
+		//System.out.println("\nPOST " + intupaddress);
+		//JSONObject intupoutput = performJsonPostRequest(intupaddress, intupinput);
+		//System.out.println(intupoutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Update external measure to web service
-		String extupaddress = "http://localhost:8022/services/ArtistRegistryWS/external/Successability_SU/update";
-		JSONObject exupinput = new JSONObject();
-		exupinput.put("service_name", "ArtistRegistryWS");
-		exupinput.put("measure_name", "Successability_SU");
-		exupinput.put("measure_kind", "Raw");
-		exupinput.put("measure_value", "1.0");
-		System.out.println("\nPOST " + extupaddress);
-		JSONObject exupoutput = performJsonPostRequest(extupaddress, exupinput);
-		System.out.println(exupoutput.toString(3).replaceAll("\\\\/", "/"));
+		//String extupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/update";
+		//JSONObject exupinput = new JSONObject();
+		//exupinput.put("service_name", "ArtistRegistryWS");
+		//exupinput.put("measure_name", "Successability_SU");
+		//exupinput.put("measure_kind", "Raw");
+		//exupinput.put("measure_value", "1.0");
+		//System.out.println("\nPOST " + extupaddress);
+		//JSONObject exupoutput = performJsonPostRequest(extupaddress, exupinput);
+		//System.out.println(exupoutput.toString(3).replaceAll("\\\\/", "/"));		
 		
-		// Delete internal validation means
-		/*String delintvaladdress = "http://localhost:8022/services/ArtistRegistryWS/internal/Dynamic_Coupling_Between_Objects_DCBO/AxiomaticApproach/delete";
-		JSONObject delintvalinput = new JSONObject();
-		delintvalinput.put("service_name", "ArtistRegistryWS");
-		delintvalinput.put("measure_name", "Dynamic_Coupling_Between_Objects_DCBO");
-		delintvalinput.put("validation_means", "AxiomaticApproach");
-		System.out.println("\nPOST " + delintvaladdress);
-		JSONObject delintvaloutput = performJsonPostRequest(delintvaladdress, delintvalinput);
-		System.out.println(delintvaloutput.toString(3).replaceAll("\\\\/", "/"));*/
-		
-		// Delete external validation means
-		/*String delextvaladdress = "http://localhost:8022/services/ArtistRegistryWS/external/Successability_SU/EmpiricalValidation/delete";
-		JSONObject delextvalinput = new JSONObject();
-		delextvalinput.put("service_name", "ArtistRegistryWS");
-		delextvalinput.put("measure_name", "Successability_SU");
-		delextvalinput.put("validation_means", "EmpiricalValidation");
-		JSONObject delextvaloutput = performJsonPostRequest(delextvaladdress, delextvalinput);
-		System.out.println(delextvaloutput.toString(3).replaceAll("\\\\/", "/"));*/
-		
-		// Delete an internal measure
-		/*String intdeladdress = "http://localhost:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/delete";
-		JSONObject intdel = new JSONObject();
-		intdel.put("service_name", "ArtistRegistryWS");
-		intdel.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
-		System.out.println("\nPOST " + intdeladdress);
-		JSONObject intdeloutput = performJsonPostRequest(intdeladdress, intdel);
-		System.out.println(intdeloutput.toString(3).replaceAll("\\\\/", "/"));*/
-		
-		// Delete an external measure
-		/*String extdeladdress = "http://localhost:8022/services/ArtistRegistryWS/external/Successability_SU/delete";
-		JSONObject extdelinput = new JSONObject();
-		extdelinput.put("service_name", "ArtistRegistryWS");
-		extdelinput.put("measure_name", "Successability_SU");
-		extdelinput.put("measure_kind", "Raw");
-		extdelinput.put("measure_value", "0.998");
-		System.out.println("\nPOST " + extdeladdress);
-		JSONObject extdeloutput = performJsonPostRequest(extdeladdress, extdelinput);
-		System.out.println(extdeloutput.toString(3).replaceAll("\\\\/", "/"));*/
-		
-		// Get internal measure of web service
-		/*String intgetaddress = "http://localhost:8022/services/ArtistRegistryWS/internal/1/get";
-		System.out.println("\nGET " + intgetaddress);
-		JSONObject intgetoutput = performJsonGetRequest(intgetaddress);
-		System.out.println(intgetoutput.toString(3).replaceAll("\\\\/", "/"));*/
-		
-		//	Get internal measure by value
-		/*String intgetaddress = "http://localhost:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/Average";
-		System.out.println("\nGET " + intgetaddress);
-		JSONObject intgetoutput = performJsonGetRequest(intgetaddress);
-		System.out.println(intgetoutput.toString(3).replaceAll("\\\\/", "/"));*/
-		
-		// Add internal validation means to web service
-		/*String intvalupaddress = "http://localhost:8022/services/ArtistRegistryWS/internal/Dynamic_Coupling_Between_Objects_DCBO/EmpiricalValidation/update";
+		// Update internal validation means to web service
+		/*String intvalupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/Dynamic_Coupling_Between_Objects_DCBO/EmpiricalValidation/update";
 		JSONObject intvalupinput = new JSONObject();
 		intvalupinput.put("service_name", "ArtistRegistryWS");
 		intvalupinput.put("measure_name", "Dynamic_Coupling_Between_Objects_DCBO");
@@ -261,9 +210,9 @@ public class WSQRClient {
 		System.out.println("\nPOST " + intvalupaddress);
 		JSONObject intvalupoutput = performJsonPostRequest(intvalupaddress, intvalupinput);
 		System.out.println(intvalupoutput.toString(3).replaceAll("\\\\/", "/"));*/
-		
+				
 		// Update external validation means to web service
-		/*String extvalupaddress = "http://localhost:8022/services/ArtistRegistryWS/external/Successability_SU/EmpiricalValidation/update";
+		/*String extvalupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/EmpiricalValidation/update";
 		JSONObject extvalupinput = new JSONObject();
 		extvalupinput.put("service_name", "ArtistRegistryWS");
 		extvalupinput.put("measure_name", "Successability_SU");
@@ -278,18 +227,101 @@ public class WSQRClient {
 		JSONObject extvalupoutput = performJsonPostRequest(extvalupaddress, extvalupinput);
 		System.out.println(extvalupoutput.toString(3).replaceAll("\\\\/", "/"));*/
 		
-		// Delete a web service
-		String address = "http://localhost:8022/services/ArtistRegistryWS/delete";
-		JSONObject input = new JSONObject();
-		input.put("service_name", "ArtistRegistryWS");
-		System.out.println("\nDELETE " + address);
-		JSONObject output = performJsonDeleteRequest(address);
-		System.out.println(output.toString(3).replaceAll("\\\\/", "/"));
+		// Get internal measure of web service by position
+		/*String intgetaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/0/get";
+		System.out.println("\nGET " + intgetaddress);
+		JSONObject intgetoutput = performJsonGetRequest(intgetaddress);
+		System.out.println(intgetoutput.toString(3).replaceAll("\\\\/", "/"));*/
+				
+		// Get external measure of web service by position
+		/*String extgetaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/0/get";
+		System.out.println("\nGET " + extgetaddress);
+		JSONObject extgetoutput = performJsonGetRequest(extgetaddress);
+		System.out.println(extgetoutput.toString(3).replaceAll("\\\\/", "/"));*/
+				
+		//	Get internal measure by value
+		/*String intgetadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/Average";
+		System.out.println("\nGET " + intgetadd);
+		JSONObject intgetout = performJsonGetRequest(intgetadd);
+		System.out.println(intgetout.toString(3).replaceAll("\\\\/", "/"));*/
 		
+		// Get external measure by value
+		/*String extgetadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/exteranl/Successability_SU/Raw";
+		System.out.println("\nGET " + extgetadd);
+		JSONObject extgetout = performJsonGetRequest(extgetadd);
+		System.out.println(extgetout.toString(3).replaceAll("\\\\/", "/"));*/
+				
 		// Get all measures of web service
-		/*String address = "http://localhost:8022/services/ArtistRegistryWS/measures";
+		/*String address = "http://109.231.121.200:8022/services/ArtistRegistryWS/measures";
 		System.out.println("\nGET " + address);
 		JSONObject input = performJsonGetRequest(address);
 		System.out.println(input.toString(3).replaceAll("\\\\/", "/"));*/
+		
+		// Delete internal validation means
+		/*String delintvaladdress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/Dynamic_Coupling_Between_Objects_DCBO/AxiomaticApproach/delete";
+		JSONObject delintvalinput = new JSONObject();
+		delintvalinput.put("service_name", "ArtistRegistryWS");
+		delintvalinput.put("measure_name", "Dynamic_Coupling_Between_Objects_DCBO");
+		delintvalinput.put("validation_means", "AxiomaticApproach");
+		System.out.println("\nPOST " + delintvaladdress);
+		JSONObject delintvaloutput = performJsonPostRequest(delintvaladdress, delintvalinput);
+		System.out.println(delintvaloutput.toString(3).replaceAll("\\\\/", "/"));*/
+		
+		// Delete external validation means
+		/*String delextvaladdress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/EmpiricalValidation/delete";
+		JSONObject delextvalinput = new JSONObject();
+		delextvalinput.put("service_name", "ArtistRegistryWS");
+		delextvalinput.put("measure_name", "Successability_SU");
+		delextvalinput.put("validation_means", "EmpiricalValidation");
+		JSONObject delextvaloutput = performJsonPostRequest(delextvaladdress, delextvalinput);
+		System.out.println(delextvaloutput.toString(3).replaceAll("\\\\/", "/"));*/
+		
+		// Delete a web service
+		//String address = "http://109.231.121.200:8022/services/ArtistRegistryWS/delete";
+		//JSONObject input = new JSONObject();
+		//input.put("service_name", "ArtistRegistryWS");
+		//System.out.println("\nDELETE " + address);
+		//JSONObject output = performJsonDeleteRequest(address);
+		//System.out.println(output.toString(3).replaceAll("\\\\/", "/"));
+		
+		// Delete an internal measure
+		/*String delintadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/McCabe_Cyclomatic_Complexity_CC/delete";
+		JSONObject delintinput = new JSONObject();
+		delintinput.put("service_name","ArtistRegistryWS");
+		delintinput.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
+		delintinput.put("measure_kind", "Average");
+		System.out.println("\nDELETE " + delintadd);
+		JSONObject delintoutput = performJsonDeleteRequest(delintadd);
+		System.out.println(delintoutput.toString(3).replaceAll("\\\\/", "/"));*/
+		
+		// Delete an external measure
+		/*String delextadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/Successability_SU/delete";
+		JSONObject delextinput = new JSONObject();
+		delextinput.put("service_name","ArtistRegistryWS");
+		delextinput.put("measure_name", "Successability_SU");
+		delextinput.put("measure_kind", "Average");
+		System.out.println("\nDELETE " + delextadd);
+		JSONObject delextoutput = performJsonDeleteRequest(delextadd);
+		System.out.println(delextoutput.toString(3).replaceAll("\\\\/", "/"));*/
+		
+		// Delete an internal validation means
+		/*String delintvali = "http://109.231.121.200:8022/services/ArtistRegistryWS/Dynamic_Coupling_Between_Objects_DCBO/AxiomaticApproach/delete";
+		JSONObject delintvalm = new JSONObject();
+		delintvalm.put("service_name", "ArtistRegistryWS");
+		delintvalm.put("measure_name", "Dynamic_Coupling_Between_Objects_DCBO");
+		delintvalm.put("validation_means", "AxiomaticApproach");
+		System.out.println("\nDELETE " + delintvali);
+		JSONObject delintvalo = performJsonDeleteRequest(delintvali);
+		System.out.println(delintvalo.toString(3).replaceAll("\\\\/", "/"));*/
+		
+		// Delete an external validation means
+		/*String delextvali = "http://109.231.121.200:8022/services/ArtistRegistryWS/Successability_SU/EmpiricalValidation/delete";
+		JSONObject delextvalm = new JSONObject();
+		delextvalm.put("service_name", "ArtistRegistryWS");
+		delextvalm.put("measure_name", "EmpiricalValidation");
+		delextvalm.put("validation_means", "AxiomaticApproach");
+		System.out.println("\nDELETE " + delextvali);
+		JSONObject delextvalo = performJsonDeleteRequest(delextvali);
+		System.out.println(delextvalo.toString(3).replaceAll("\\\\/", "/"));*/
 	}
 }

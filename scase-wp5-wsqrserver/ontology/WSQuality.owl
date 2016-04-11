@@ -8,103 +8,101 @@
     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#" > 
+  <rdf:Description rdf:nodeID="A0">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DataRange"/>
+    <owl:oneOf rdf:nodeID="A1"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#StatisticalTestUsed">
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="A0">
-    <owl:oneOf rdf:nodeID="A1"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DataRange"/>
-  </rdf:Description>
   <rdf:Description rdf:nodeID="A2">
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-    <rdf:first rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Method_Invocations_DMI"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS__Successability_SU__Raw">
-    <is_measure_of rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS"/>
-    <MeasureValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</MeasureValue>
-    <MeasureValueKind>Raw</MeasureValueKind>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DataRange"/>
+    <owl:oneOf rdf:nodeID="A3"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Accessability_AC">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Bugs"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Quality_Perception"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The accessability describes the probability of which web services platform is accessible while the system is available
 Accessability=numOfAckMsgs/numOfReqMsgs</rdfs:comment>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Quality_Perception"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Bugs"/>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">na</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">na</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#AccuracyLevel">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A4">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
+    <rdf:rest rdf:nodeID="A5"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure">
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Internal_Measure"/>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Internal_Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__McCabe_Cyclomatic_Complexity_CC__Average">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
-    <MeasureValueKind>Average</MeasureValueKind>
-    <MeasureValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10.0</MeasureValue>
     <is_measure_of rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01"/>
+    <MeasureValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10.0</MeasureValue>
+    <MeasureValueKind>Average</MeasureValueKind>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A6">
+    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Median</rdf:first>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure">
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Internal_Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A3">
-    <rdf:rest rdf:nodeID="A4"/>
-    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NullValue: The coupling of a module with no outer relationships is null under all execution traces</rdf:first>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Internal_Measure"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#MeasureValidationMeans">
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Object_Method_Invocations_OMI">
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Method_Invocations_DMI"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Coupling_Between_Objects_DCBO"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Classes_DC"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The total number of distinct methods invoked by each method in each object within a runtime session</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The total number of distinct methods invoked by each method in each object within a runtime session</rdfs:comment>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Classes_DC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Coupling_Between_Objects_DCBO"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Method_Invocations_DMI"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A7">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Method_Invocations_DMI"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#PValue">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService"/>
-    <WebServiceName>TestService01</WebServiceName>
-    <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__McCabe_Cyclomatic_Complexity_CC__Average"/>
-    <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__Lines_of_Code_LOC__Average"/>
-    <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__Accessability_AC__Average"/>
     <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__Successability_SU__Average"/>
+    <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__Accessability_AC__Average"/>
+    <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__Lines_of_Code_LOC__Average"/>
+    <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__McCabe_Cyclomatic_Complexity_CC__Average"/>
+    <WebServiceName>TestService01</WebServiceName>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A5">
-    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Raw</rdf:first>
-    <rdf:rest rdf:nodeID="A6"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__Accessability_AC__Average">
     <AccuracyIndicatorUsed>AIUN</AccuracyIndicatorUsed>
@@ -119,83 +117,72 @@ Accessability=numOfAckMsgs/numOfReqMsgs</rdfs:comment>
     <MeasureValidationMeans>MeasurementTheory</MeasureValidationMeans>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure">
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Internal_Measure"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A7">
-    <owl:oneOf rdf:nodeID="A5"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DataRange"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Internal_Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Quality_Perception">
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Bugs"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Accessability_AC"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The external quality
  perceived by final users of the service.</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Accessability_AC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Bugs"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A8">
+    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Average</rdf:first>
+    <rdf:rest rdf:nodeID="A6"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC">
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CC(G)=e-n+2p</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CC(G)=e-n+2p</rdfs:comment>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#AccuracyIndicatorUsed">
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#WebServiceName">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS">
-    <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS__Successability_SU__Raw"/>
-    <WebServiceName>ArtistRegistryWS</WebServiceName>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService"/>
-    <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS__Availability_AV__Average"/>
-    <has_measure rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS__McCabe_Cyclomatic_Complexity_CC__Average"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce">
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The number of other packages that the classes in the package depend upon</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The number of other packages that the classes in the package depend upon</rdfs:comment>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A5">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
+    <rdf:rest rdf:nodeID="A7"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#MeasureValueKind">
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
-    <rdfs:range rdf:nodeID="A7"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A6">
-    <rdf:rest rdf:nodeID="A8"/>
-    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Average</rdf:first>
+    <rdfs:range rdf:nodeID="A2"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__Lines_of_Code_LOC__Average">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
-    <MeasureValueKind>Average</MeasureValueKind>
-    <MeasureValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10.0</MeasureValue>
     <is_measure_of rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A9">
-    <rdf:rest rdf:nodeID="A10"/>
-    <rdf:first rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
+    <MeasureValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10.0</MeasureValue>
+    <MeasureValueKind>Average</MeasureValueKind>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#StatisticalSignificanceLevel">
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#TestService01__Successability_SU__Average">
     <PValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</PValue>
@@ -209,148 +196,136 @@ Accessability=numOfAckMsgs/numOfReqMsgs</rdfs:comment>
     <MeasureValidationMeans>MeasurementTheory</MeasureValidationMeans>
     <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="A10">
-    <rdf:rest rdf:nodeID="A2"/>
-    <rdf:first rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Method_Invocations_DMI">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The count, within a runtime session, of the total number of distinct methods invoked by each method in each object</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Coupling_Between_Objects_DCBO"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Object_Method_Invocations_OMI"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Classes_DC"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Classes_DC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Object_Method_Invocations_OMI"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Coupling_Between_Objects_DCBO"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The count, within a runtime session, of the total number of distinct methods invoked by each method in each object</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS__McCabe_Cyclomatic_Complexity_CC__Average">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
-    <MeasureValueKind>Average</MeasureValueKind>
-    <MeasureValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</MeasureValue>
-    <is_measure_of rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS"/>
+  <rdf:Description rdf:nodeID="A9">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
+    <rdf:rest rdf:nodeID="A4"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A10">
+    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NullValue: The coupling of a module with no outer relationships is null under all execution traces</rdf:first>
+    <rdf:rest rdf:nodeID="A11"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Internal_Measure">
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC">
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WMC=SUM(Ci)</rdfs:comment>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A8">
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Median</rdf:first>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WMC=SUM(Ci)</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Bugs">
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Quality_Perception"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Accessability_AC"/>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The total number of bugs, open and tracked, into bug tracker systems.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The total number of bugs, open and tracked, into bug tracker systems.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Accessability_AC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Quality_Perception"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM">
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LCOM(c)=|P(c)|-|Q(c)| if |P(c)|&gt;|Q(c)|</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LCOM(c)=|P(c)|-|Q(c)| if |P(c)|&gt;|Q(c)|</rdfs:comment>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Classes_DC">
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Method_Invocations_DMI"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Coupling_Between_Objects_DCBO"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Object_Method_Invocations_OMI"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The count of the distinct number of classes that a method uses within a runtime session</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A1">
-    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Monotonicity: OuterR(m1) ⊆ OuterR(m2) ∧ R1 ⊆ R2 ∧ tr1 ⊆ tr2 -&gt; DynCoupling(m1, tr1) ≤ DynCoupling(m2, tr)</rdf:first>
-    <rdf:rest rdf:nodeID="A3"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The count of the distinct number of classes that a method uses within a runtime session</rdfs:comment>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Object_Method_Invocations_OMI"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Coupling_Between_Objects_DCBO"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Method_Invocations_DMI"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Afferent_Couplings_Ca">
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The number of other packages that depend upon classes within the package</rdfs:comment>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#McCabe_Cyclomatic_Complexity_CC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Efferent_Couplings_Ce"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lack_of_Cohesion_of_Methods_LCOM"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Weighted_Methods_per_Class_WMC"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Static_Measure"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="A11">
-    <rdf:rest rdf:nodeID="A9"/>
-    <rdf:first rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Lines_of_Code_LOC"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A12">
-    <owl:unionOf rdf:nodeID="A11"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:Description rdf:nodeID="A1">
+    <rdf:rest rdf:nodeID="A10"/>
+    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Monotonicity: OuterR(m1) ⊆ OuterR(m2) ∧ R1 ⊆ R2 ∧ tr1 ⊆ tr2 -&gt; DynCoupling(m1, tr1) ≤ DynCoupling(m2, tr)</rdf:first>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#MeasureValue">
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#is_measure_of">
-    <owl:inverseOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#has_measure"/>
-    <rdfs:range rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService"/>
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService"/>
+    <owl:inverseOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#has_measure"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#has_measure">
-    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService"/>
-    <rdfs:range rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
-    <owl:inverseOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#is_measure_of"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#is_measure_of"/>
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Measure"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#WebService"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS__Availability_AV__Average">
-    <is_measure_of rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#ArtistRegistryWS"/>
-    <MeasureValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">5.0</MeasureValue>
-    <MeasureValueKind>Average</MeasureValueKind>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV"/>
+  <rdf:Description rdf:nodeID="A12">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="A9"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV">
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Bugs"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Quality_Perception"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Accessability_AC"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The availability describes the degree of which web services are available in operational status
 Availability=1-downTime/measuredTime)</rdfs:comment>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Accessability_AC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Quality_Perception"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Bugs"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A11">
+    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MergingOfModules: ∀tr(DynCoupling(m1 ∪m2, tr) ≤ DynCoupling(m1, tr) + Coupling(m2, tr))</rdf:first>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Successability_SU">
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Accessability_AC"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Quality_Perception"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Bugs"/>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The successability correlates with CC and DCBO by a Logistic Regression Model
 SU=e^(-0,15*CC+0,08*DCBO)/(1+e^(-0,15*CC+0,08*DCBO))</rdfs:comment>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#External_Measure"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Bugs"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Quality_Perception"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Availability_AV"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Accessability_AC"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="A4">
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MergingOfModules: ∀tr(DynCoupling(m1 ∪m2, tr) ≤ DynCoupling(m1, tr) + Coupling(m2, tr))</rdf:first>
+  <rdf:Description rdf:nodeID="A3">
+    <rdf:rest rdf:nodeID="A8"/>
+    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Raw</rdf:first>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Coupling_Between_Objects_DCBO">
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Method_Invocations_DMI"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Object_Method_Invocations_OMI"/>
-    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Classes_DC"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The number of distinct classes a specific class is coupled to at runtime</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Dynamic_Measure"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The number of distinct classes a specific class is coupled to at runtime</rdfs:comment>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Classes_DC"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Object_Method_Invocations_OMI"/>
+    <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1406103978.owl#Distinct_Method_Invocations_DMI"/>
   </rdf:Description>
 </rdf:RDF>
