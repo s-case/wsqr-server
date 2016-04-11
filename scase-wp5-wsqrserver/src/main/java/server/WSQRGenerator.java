@@ -235,8 +235,6 @@ public class WSQRGenerator {
 		//json.put("measure_kind", measureKind);
 		//json.put("measure_value", measureValue);
 		ontology.close();
-=======
->>>>>>> origin/master
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
