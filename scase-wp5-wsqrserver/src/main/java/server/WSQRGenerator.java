@@ -94,6 +94,7 @@ public class WSQRGenerator {
 		ontology.addWebService(service_name);
 		JSONObject json = new JSONObject();
 		json.put("service_name", service_name);
+		ontology.close();
 		return Response.status(200).entity(json.toString()).build();
 	}
 
