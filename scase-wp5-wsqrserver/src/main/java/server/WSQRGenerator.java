@@ -231,9 +231,8 @@ public class WSQRGenerator {
 		JSONObject json = new JSONObject();
 		json.put("service_name", serviceName);
 		json.put("measure_name", measure);
-<<<<<<< HEAD
-		//json.put("measure_kind", measureKind);
-		//json.put("measure_value", measureValue);
+		json.put("measure_kind", measureKind);
+		json.put("measure_value", measureValue);
 		ontology.close();
 		return Response.status(200).entity(json.toString()).build();
 	}
