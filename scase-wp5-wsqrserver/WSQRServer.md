@@ -108,3 +108,112 @@ then the server returns a Response 422
    + Body
 
             JSONObject["..."] not found.
+# Delete Service [/services/{service_name}/delete]
+An endpoint for deleting a web service.
+
+Deleting a new web service requires sending a DELETE request including the service name and
+receiving a response containing the following attributes: 
+
+- serviceName
+
+## Annotating phrases [DELETE]
+
+Using the WSQR server for deleting a service requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+        }
+        
+If the request is correct the server should return a Response 200 and the Web Service is deleted.
+
+# Add Internal Meaasure [/services/[service_name}/internal/{measure_name}/add]
+An endpoint for adding a new internal measure.
+
+Adding a new internal measure requires sending a POST request including the service name and the measure name and
+receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+- measureKind
+- measureValue
+
+## Annotating phrases [POST]
+
+Using the WSQR server for adding an internal measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+            }
+
+# Add External Meaasure [/services/[service_name}/external/{measure_name}/add]
+An endpoint for adding a new external measure.
+
+Adding a new external measure requires sending a POST request including the service name and the measure name and
+receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+- measureKind
+- measureValue
+- 
+## Annotating phrases [POST]
+
+Using the WSQR server for adding an external measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+            }
+
+# Add Internal Validation Means [/services/{service_name}/internal/{measure_name}/{validation_means}/add]
+# Add External Validation Means [/services/{service_name}/external/{measure_name}/{validation_means}/add]
+# Update Internal Measure [/services/{service_name}/internal/{measure_name}/update]
+# Update External Measure [/services/{service_name}/external/{measure_name}/update]
+# Get Internal Measure by Position [/services/{service_name}/internal/{measure_position}/get]
+# Get Internal Measure by Kind [/services/{service_name}/internal/{measure_name}/{value_kind}]
+# Get all Measures [/services/{service_name}/measures]
