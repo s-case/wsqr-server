@@ -108,6 +108,7 @@ then the server returns a Response 422
    + Body
 
             JSONObject["..."] not found.
+            
 # Delete Service [/services/{service_name}/delete]
 An endpoint for deleting a web service.
 
@@ -128,7 +129,7 @@ Using the WSQR server for deleting a service requires posting the following requ
         
 If the request is correct the server should return a Response 200 and the Web Service is deleted.
 
-# Add Internal Meaasure [/services/[service_name}/internal/{measure_name}/add]
+# Add Internal Measure [/services/[service_name}/internal/{measure_name}/add]
 An endpoint for adding a new internal measure.
 
 Adding a new internal measure requires sending a POST request including the service name and the measure name and
@@ -169,7 +170,7 @@ If the request is correct the server should return a Response 200
                "measure_name": "..."
             }
 
-# Add External Meaasure [/services/[service_name}/external/{measure_name}/add]
+# Add External Measure [/services/[service_name}/external/{measure_name}/add]
 An endpoint for adding a new external measure.
 
 Adding a new external measure requires sending a POST request including the service name and the measure name and
