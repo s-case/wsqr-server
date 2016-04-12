@@ -179,7 +179,7 @@ receiving a response containing the following attributes:
 - measureName
 - measureKind
 - measureValue
-- 
+
 ## Annotating phrases [POST]
 
 Using the WSQR server for adding an external measure requires posting the following request:
@@ -211,9 +211,276 @@ If the request is correct the server should return a Response 200
             }
 
 # Add Internal Validation Means [/services/{service_name}/internal/{measure_name}/{validation_means}/add]
+An endpoint for adding a new internal validation means to a measure.
+
+Adding a new internal validation means requires sending a POST request including the service name, the measure name and the validation means and receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+- means
+
+## Annotating phrases [POST]
+
+Using the WSQR server for adding an internal validation means requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+            "validation_means": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+               "validation_means": "..."
+            }
+
 # Add External Validation Means [/services/{service_name}/external/{measure_name}/{validation_means}/add]
+An endpoint for adding a new ecternal validation means to a measure.
+
+Adding a new external validation means requires sending a POST request including the service name, the measure name and the validation means and receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+- means
+
+## Annotating phrases [POST]
+
+Using the WSQR server for adding an external validation means requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+            "validation_means": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+               "validation_means": "..."
+            }
+            
 # Update Internal Measure [/services/{service_name}/internal/{measure_name}/update]
+An endpoint for updating an internal measure.
+
+Updating an internal measure requires sending a POST request including the service name and the measure name and receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+
+## Annotating phrases [POST]
+
+Using the WSQR server for updating an internal measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+               "value_kind": "..."
+               "value": "..."
+            }
+
 # Update External Measure [/services/{service_name}/external/{measure_name}/update]
+An endpoint for updating an external measure.
+
+Updating an external measure requires sending a POST request including the service name and the measure name and receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+
+## Annotating phrases [POST]
+
+Using the WSQR server for updating an external measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+               "value_kind": "..."
+               "value": "..."
+            }
+            
 # Get Internal Measure by Position [/services/{service_name}/internal/{measure_position}/get]
+An endpoint for getting an internal measure by position.
+
+Getting a new internal measure requires sending a GET request including the service name and the measure position and receiving a response containing the following attributes: 
+
+- serviceName
+- measurePos
+
+## Annotating phrases [POST]
+
+Using the WSQR server for getting an internal measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_pos": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+            }
+
 # Get Internal Measure by Kind [/services/{service_name}/internal/{measure_name}/{value_kind}]
+An endpoint for getting an internal measure by value kind.
+
+Getting a new internal measure requires sending a GET request including the service name, the measure name and the value kind and receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+- valueKind
+
+## Annotating phrases [POST]
+
+Using the WSQR server for getting an internal measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_value": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+            }
+            
 # Get all Measures [/services/{service_name}/measures]
+An endpoint for getting all measures of a web service.
+
+Getting all measures requires sending a GET request including the service name and receiving a response containing the following attributes: 
+
+- serviceName
+
+## Annotating phrases [POST]
+
+Using the WSQR server for getting all measures requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+            }
