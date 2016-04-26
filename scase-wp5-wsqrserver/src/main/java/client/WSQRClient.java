@@ -124,7 +124,7 @@ public class WSQRClient {
 		System.out.println(phraseOutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Add internal measure to web service
-		String intaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/add";
+		/*String intaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/add";
 		JSONObject internal = new JSONObject();
 		internal.put("service_name", "ArtistRegistryWS");
 		internal.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
@@ -132,7 +132,7 @@ public class WSQRClient {
 		internal.put("measure_value", "2.26");
 		System.out.println("\nPOST " + intaddress);
 		JSONObject intoutput = performJsonPostRequest(intaddress, internal);
-		System.out.println(intoutput.toString(3).replaceAll("\\\\/", "/"));
+		System.out.println(intoutput.toString(3).replaceAll("\\\\/", "/"));*/
 		
 		// Add external measure to web service
 		String extaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/add";
@@ -146,7 +146,7 @@ public class WSQRClient {
 		System.out.println(extoutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Add internal validation means to web service
-		String intvaladdress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/AxiomaticApproach/add";
+		/*String intvaladdress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/AxiomaticApproach/add";
 		JSONObject intvalinput = new JSONObject();
 		intvalinput.put("service_name", "ArtistRegistryWS");
 		intvalinput.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
@@ -157,7 +157,7 @@ public class WSQRClient {
 		intvalinput.put("internal_measure_kind", "");
 		System.out.println("\nPOST " + intvaladdress);
 		JSONObject intvaloutput = performJsonPostRequest(intvaladdress, intvalinput);
-		System.out.println(intvaloutput.toString(3).replaceAll("\\\\/", "/"));
+		System.out.println(intvaloutput.toString(3).replaceAll("\\\\/", "/"));*/
 		
 		// Add external validation means to web service
 		String extvaladdress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/EmpiricalValidation/add";
@@ -176,7 +176,7 @@ public class WSQRClient {
 		System.out.println(extvaloutput.toString(3).replaceAll("\\\\/", "/"));
 		
 		// Update internal measure to web service
-		String intupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/update";
+		/*String intupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/update";
 		JSONObject intupinput = new JSONObject();
 		intupinput.put("service_name", "ArtistRegistryWS");
 		intupinput.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
@@ -184,7 +184,7 @@ public class WSQRClient {
 		intupinput.put("measure_value", "3.0");
 		System.out.println("\nPOST " + intupaddress);
 		JSONObject intupoutput = performJsonPostRequest(intupaddress, intupinput);
-		System.out.println(intupoutput.toString(3).replaceAll("\\\\/", "/"));
+		System.out.println(intupoutput.toString(3).replaceAll("\\\\/", "/"));*/
 		
 		// Update external measure to web service
 		String extupaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/update";
@@ -227,7 +227,7 @@ public class WSQRClient {
 		JSONObject extvalupoutput = performJsonPostRequest(extvalupaddress, extvalupinput);
 		System.out.println(extvalupoutput.toString(3).replaceAll("\\\\/", "/"));*/
 		
-		// Get internal measure of web service by position
+		// Get internal measure of web service by position  --IT RETURNS THE MEASURE SAVED EVEN THOUGH IT'S AN EXTERNAL ONE.
 		String intgetaddress = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/0/get";
 		System.out.println("\nGET " + intgetaddress);
 		JSONObject intgetoutput = performJsonGetRequest(intgetaddress);
@@ -240,13 +240,13 @@ public class WSQRClient {
 		System.out.println(extgetoutput.toString(3).replaceAll("\\\\/", "/"));*/
 				
 		//	Get internal measure by value
-		String intgetadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/Average";
+		/*String intgetadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/Average";
 		System.out.println("\nGET " + intgetadd);
 		JSONObject intgetout = performJsonGetRequest(intgetadd);
-		System.out.println(intgetout.toString(3).replaceAll("\\\\/", "/"));
+		System.out.println(intgetout.toString(3).replaceAll("\\\\/", "/"));*/
 		
 		// Get external measure by value
-		/*String extgetadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/exteranl/Successability_SU/Raw";
+		/*String extgetadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/Raw";
 		System.out.println("\nGET " + extgetadd);
 		JSONObject extgetout = performJsonGetRequest(extgetadd);
 		System.out.println(extgetout.toString(3).replaceAll("\\\\/", "/"));*/
@@ -257,16 +257,16 @@ public class WSQRClient {
 		JSONObject input = performJsonGetRequest(address);
 		System.out.println(input.toString(3).replaceAll("\\\\/", "/"));
 		
-		// Delete a web service FUNZIONA
-		/*String address = "http://109.231.121.200:8022/services/ArtistRegistryWS/delete";
-		JSONObject input = new JSONObject();
-		input.put("service_name", "ArtistRegistryWS");
-		System.out.println("\nDELETE " + address);
-		JSONObject output = performJsonDeleteRequest(address);
-		System.out.println(output.toString(3).replaceAll("\\\\/", "/"));*/
+		// Delete a web service
+		String add = "http://109.231.121.200:8022/services/ArtistRegistryWS/delete";
+		JSONObject in = new JSONObject();
+		in.put("service_name", "ArtistRegistryWS");
+		System.out.println("\nDELETE " + add);
+		JSONObject output = performJsonDeleteRequest(add);
+		System.out.println(output.toString(3).replaceAll("\\\\/", "/"));
 		
-		// Delete an internal measure
-		/*String delintadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/McCabe_Cyclomatic_Complexity_CC/delete";
+		// Delete an internal measure 500
+		/*String delintadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/delete";
 		JSONObject delintinput = new JSONObject();
 		delintinput.put("service_name","ArtistRegistryWS");
 		delintinput.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
@@ -275,8 +275,8 @@ public class WSQRClient {
 		JSONObject delintoutput = performJsonDeleteRequest(delintadd);
 		System.out.println(delintoutput.toString(3).replaceAll("\\\\/", "/"));*/
 		
-		// Delete an external measure
-		/*String delextadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/Successability_SU/delete";
+		// Delete an external measure 500
+		/*String delextadd = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/delete";
 		JSONObject delextinput = new JSONObject();
 		delextinput.put("service_name","ArtistRegistryWS");
 		delextinput.put("measure_name", "Successability_SU");
@@ -285,18 +285,18 @@ public class WSQRClient {
 		JSONObject delextoutput = performJsonDeleteRequest(delextadd);
 		System.out.println(delextoutput.toString(3).replaceAll("\\\\/", "/"));*/
 		
-		// Delete an internal validation means
-		/*String delintvali = "http://109.231.121.200:8022/services/ArtistRegistryWS/Dynamic_Coupling_Between_Objects_DCBO/AxiomaticApproach/delete";
+		// Delete an internal validation means 500
+		/*String delintvali = "http://109.231.121.200:8022/services/ArtistRegistryWS/internal/McCabe_Cyclomatic_Complexity_CC/EmpiricalValidation/delete";
 		JSONObject delintvalm = new JSONObject();
 		delintvalm.put("service_name", "ArtistRegistryWS");
-		delintvalm.put("measure_name", "Dynamic_Coupling_Between_Objects_DCBO");
-		delintvalm.put("validation_means", "AxiomaticApproach");
+		delintvalm.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
+		delintvalm.put("validation_means", "EmpiricalValidation");
 		System.out.println("\nDELETE " + delintvali);
 		JSONObject delintvalo = performJsonDeleteRequest(delintvali);
 		System.out.println(delintvalo.toString(3).replaceAll("\\\\/", "/"));*/
 		
-		// Delete an external validation means
-		/*String delextvali = "http://109.231.121.200:8022/services/ArtistRegistryWS/Successability_SU/EmpiricalValidation/delete";
+		// Delete an external validation means 500
+		/*String delextvali = "http://109.231.121.200:8022/services/ArtistRegistryWS/external/Successability_SU/EmpiricalValidation/delete";
 		JSONObject delextvalm = new JSONObject();
 		delextvalm.put("service_name", "ArtistRegistryWS");
 		delextvalm.put("measure_name", "EmpiricalValidation");
