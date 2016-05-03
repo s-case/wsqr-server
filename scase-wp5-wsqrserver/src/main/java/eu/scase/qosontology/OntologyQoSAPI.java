@@ -20,8 +20,8 @@ public class OntologyQoSAPI {
 	 * you do <u><b>NOT</b></u> call {@link #close()}.
 	 */
 	public OntologyQoSAPI() {
-		//String filename = "/Users/Carol/Documents/Università/Tirocinio/wsqr-server/scase-wp5-wsqrserver/ontology/WSQuality.owl";
-		String filename = "/home/ubuntu/WSQuality.owl";
+		String filename = "/Users/davidetosi/Documents/workspace_Mars/wsqr-server-master/scase-wp5-wsqrserver/ontology/WSQuality.owl";
+		//String filename = "/home/ubuntu/WSQuality.owl";
 		String SOURCE = "http://www.owl-ontologies.com/Ontology1406103978.owl";
 		ontology = new OntologyJenaAPI(filename, SOURCE);
 	}
@@ -181,6 +181,14 @@ public class OntologyQoSAPI {
 		ontology.removePropertyFromIndividual(individualName, "PValue");
 		ontology.removePropertyFromIndividual(individualName, "StatisticalSignificanceLevel");
 	}
+	
+	public void deleteInternalValidationMeansFromMeasure(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		ontology.removePropertyFromIndividual(individualName, "MeasureValidationMeans");
+		ontology.removePropertyFromIndividual(individualName, "AttributeName");
+		ontology.removePropertyFromIndividual(individualName, "AttributeValue");
+	}
+	
 
 	/**
 	 * Updates the validation means of a measure. If the measure does not exist, nothing happens. If the measure does
@@ -207,10 +215,12 @@ public class OntologyQoSAPI {
 	
 	public void updateInternalValidationMeansOfMeasure(String WebServiceName, String MeasureName, String MeasureValueKind,
 			String MeasureValidationMeans, String AttributeName, String AttributeValue, String InternalMeasureKind) {
-		deleteValidationMeansFromMeasure(WebServiceName, MeasureName, MeasureValueKind);
+		deleteInternalValidationMeansFromMeasure(WebServiceName, MeasureName, MeasureValueKind);
 		addInternalValidationMeansToMeasure(WebServiceName, MeasureName, MeasureValueKind, MeasureValidationMeans,
 				AttributeName, AttributeValue, InternalMeasureKind);
 	}
+	
+	
 	/**
 	 * This methods retrieves all the measurements in an XML document, which is traceable with the path properties.
 	 * 
