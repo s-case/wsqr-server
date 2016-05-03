@@ -365,39 +365,49 @@ public class WSQRGenerator {
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
-	@Path("/{service_name}/internal/{measure_name}/{validation_means}/update")
+	@Path("/{service_name}/internal/{measure_name}/{measure_kind}/update")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measureName, @PathParam("validation_means") String validationMeans, String request) throws JSONException {
+			@PathParam("measure_name") String measureName, @PathParam("measure_kind") String measureKind, String request) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
-		System.out.println("POST internal: " + serviceName);
-		System.out.println("Validation means: " + validationMeans);
+		System.out.println("UPDATE Measure from Service: " + serviceName);
+		System.out.println("Measure Name: " + measureName);
+		System.out.println("Measure Kind: " + measureKind);
 		
 		JSONObject jsonRequest = new JSONObject(request);
+		
 		if (!jsonRequest.has("service_name") && !jsonRequest.has("measure_name") && !jsonRequest.has("validation_means"))
-			throw new WebApplicationException(Response.status(422).entity("Please include a \"phrase\" JSON key")
-				.type("text/plain").build());
-		String measure_kind = jsonRequest.getString("measure_kind");
+		    throw new WebApplicationException(Response.status(422).entity("Please include a \"phrase\" JSON key").type("text/plain").build());
+		
+		//String measure_kind = jsonRequest.getString("measure_kind");
 		String attribute_name = jsonRequest.getString("attribute_name");
 		String attribute_value = jsonRequest.getString("attribute_value");
+		String validation_means = jsonRequest.getString("validation_means");
 		String internal_measure_kind = jsonRequest.getString("internal_measure_kind");
-		ontology.updateInternalValidationMeansOfMeasure(serviceName, measureName, measure_kind,
-				validationMeans, attribute_name, attribute_value, internal_measure_kind);
+		
+		System.out.println("Attribute Name: " + attribute_name);
+		System.out.println("Attribute Value: " + attribute_value);
+		System.out.println("Validation means: " + validation_means);
+		System.out.println("Internal Measure Kind: " + internal_measure_kind);
+		
+		ontology.updateInternalValidationMeansOfMeasure(serviceName, measureName, measureKind,
+				validation_means, attribute_name, attribute_value, internal_measure_kind);
 		ontology.close();
 		JSONObject json = new JSONObject();
 		json.put("service_name", serviceName);
 		json.put("measure_name", measureName);
-		json.put("measure_kind", measure_kind);
-		json.put("validation_means", validationMeans);
+		json.put("measure_kind", measureKind);
+		json.put("validation_means", validation_means);
 		json.put("attribute_name", attribute_name);
 		json.put("attribute_value", attribute_value);
 		json.put("internal_measure_kind", internal_measure_kind);
 		
 		return Response.status(200).entity(json.toString()).build();
 	}
+	
 	
 	@Path("/{service_name}/external/{measure_name}/{validation_means}/update")
 	@POST
@@ -448,15 +458,15 @@ public class WSQRGenerator {
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
-	@Path("/{service_name}/internal/{measure_name}/delete")
+	@Path("/{service_name}/internal/{measure_name}/{measure_kind}/delete")
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteInternalMeasureOfWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure, String measureKind) throws JSONException {
+			@PathParam("measure_name") String measure, @PathParam("measure_kind") String measureKind) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 		
 		System.out.println("DELETE measure from: " + serviceName);
-		System.out.println("Measure: " + measure);
+		System.out.println("Measure name: " + measure);
 		System.out.println("Measure kind: " + measureKind);
 		
 		ontology.deleteMeasureOfWebService(serviceName, measure, measureKind);
@@ -468,6 +478,7 @@ public class WSQRGenerator {
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
+	
 	@Path("/{service_name}/external/{measure_name}/{measure_kind}/delete")
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
@@ -476,7 +487,8 @@ public class WSQRGenerator {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 		
 		System.out.println("DELETE measure from: " + serviceName);
-		System.out.println("Measure: " + measure);
+		System.out.println("Measure name: " + measure);
+		System.out.println("Measure kind: " + measureKind);
 		
 		ontology.deleteMeasureOfWebService(serviceName, measure, measureKind);
 		ontology.close();
@@ -487,38 +499,38 @@ public class WSQRGenerator {
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
-	@Path("/{service_name}/internal/{measure_name}/{validation_means}/delete")
+	/*@Path("/{service_name}/internal/{measure_name}/{validation_means}/delete")
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure, @PathParam("validation_means") String means) throws JSONException {
+			@PathParam("measure_name") String measure, @PathParam("validation_means") String validationMeans) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
-		System.out.println("DELETE internal: " + serviceName);
-		System.out.println("Validation means: " + means);
+		System.out.println("DELETE measure from: " + serviceName);
+		System.out.println("Measure name: " + measure);
+		System.out.println("Validation means: " + validationMeans);
 
-		JSONObject jsonRequest = new JSONObject();
-		String valueKind = jsonRequest.getString("value_kind");
-		
-		ontology.deleteValidationMeansFromMeasure(serviceName, measure, valueKind);
+		ontology.deleteValidationMeansFromMeasure(serviceName, measure, validationMeans);
 		ontology.close();
 		JSONObject json = new JSONObject();
 		json.put("service_name", serviceName);
 		json.put("measure_name", measure);
-		json.put("validation_means", means);
+		json.put("validation_means", validationMeans);
 		return Response.status(200).entity(json.toString()).build();
 	}
+	*/
 
-	@Path("/{service_name}/external/{measure_name}/{validation_means}/delete")
+	/*@Path("/{service_name}/external/{measure_name}/{validation_means}/delete")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure, @PathParam("validation_means") String means, String request) throws JSONException {
+			@PathParam("measure_name") String measure, @PathParam("validation_means") String validationMeans, String request) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
-		System.out.println("DELETE external: " + serviceName);
-		System.out.println("Validation means: " + means);
+		System.out.println("DELETE measure from: " + serviceName);
+		System.out.println("Measure name: " + measure);
+		System.out.println("Validation means: " + validationMeans);
 
 		JSONObject jsonRequest = new JSONObject(request);
 		if (!jsonRequest.has("service_name"))
@@ -526,13 +538,15 @@ public class WSQRGenerator {
 					.type("text/plain").build());
 		String valueKind = jsonRequest.getString("value_kind");
 				
-		ontology.deleteValidationMeansFromMeasure(serviceName, measure, valueKind);
+		ontology.deleteValidationMeansFromMeasure(serviceName, measure, validationMeans);
 		ontology.close();
 		JSONObject json = new JSONObject();
 		json.put("service_name", serviceName);
 		json.put("measure_name", measure);
 		return Response.status(200).entity(json.toString()).build();
 	}
+	*/
+	
 	
 	private void prepareJson(ArrayList<String> measures, JSONObject json) throws JSONException {
 		json.put("Measures", measures);
