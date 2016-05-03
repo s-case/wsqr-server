@@ -158,6 +158,7 @@ public class OntologyQoSAPI {
 	public void addInternalValidationMeansToMeasure(String WebServiceName, String MeasureName, String MeasureValueKind,
 			String MeasureValidationMeans, String AttributeName, String AttributeValue, String InternalMeasureKind) {
 		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		System.out.println("NELL'ONTOLOGIA FACCIO ORA ADD PER: "+individualName);
 		ontology.addPropertyToIndividual(individualName, "MeasureValidationMeans", MeasureValidationMeans);
 		ontology.addPropertyToIndividual(individualName, "AttributeName", AttributeName);
 		ontology.addPropertyToIndividual(individualName, "AttributeValue", AttributeValue);
@@ -184,6 +185,7 @@ public class OntologyQoSAPI {
 	
 	public void deleteInternalValidationMeansFromMeasure(String WebServiceName, String MeasureName, String MeasureValueKind) {
 		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		System.out.println("NELL'ONTOLOGIA FACCIO DELETE PER: "+individualName);
 		ontology.removePropertyFromIndividual(individualName, "MeasureValidationMeans");
 		ontology.removePropertyFromIndividual(individualName, "AttributeName");
 		ontology.removePropertyFromIndividual(individualName, "AttributeValue");
@@ -215,12 +217,14 @@ public class OntologyQoSAPI {
 	
 	public void updateInternalValidationMeansOfMeasure(String WebServiceName, String MeasureName, String MeasureValueKind,
 			String MeasureValidationMeans, String AttributeName, String AttributeValue, String InternalMeasureKind) {
+		System.out.println("ONTOLOGIA PARAMETRI: " +WebServiceName +" , "+MeasureName +" , "+MeasureValueKind+" , "+MeasureValidationMeans+" , "+AttributeName+" , "+AttributeValue+" , "+InternalMeasureKind);
 		deleteInternalValidationMeansFromMeasure(WebServiceName, MeasureName, MeasureValueKind);
+		System.out.println("ONTOLOGIA DI RITORNO DALLA DELETE");		
 		addInternalValidationMeansToMeasure(WebServiceName, MeasureName, MeasureValueKind, MeasureValidationMeans,
 				AttributeName, AttributeValue, InternalMeasureKind);
 	}
 	
-	
+		
 	/**
 	 * This methods retrieves all the measurements in an XML document, which is traceable with the path properties.
 	 * 
