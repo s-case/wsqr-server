@@ -120,6 +120,13 @@ public class WSQRClient {
 		JSONObject initOutput = performJsonGetRequest(initAddress);
 		System.out.println(initOutput.toString(3).replaceAll("\\\\/", "/"));
 
+		// Get all measures of web service
+		//String address = "http://109.231.121.200:8022/services/ArtistRegistryWS/measures";
+		String address = "http://localhost:8022/services/DavideTosiWS/measures";
+		System.out.println("\nGET " + address);
+		JSONObject input = performJsonGetRequest(address);
+		System.out.println(input.toString(3).replaceAll("\\\\/", "/"));
+		
 		// Add a new web service
 		/*//String webServiceAddress = "http://109.231.121.200:8022/services/DavideTosiWS/add";
 		String webServiceAddress = "http://localhost:8022/services/DavideTosiWS/add";
@@ -175,7 +182,7 @@ public class WSQRClient {
 		
 		
 		// Add external validation means to web service
-		/*//String extvaladdress = "http://109.231.121.200:8022/services/DavideTosiWS/external/Successability_SU/EmpiricalValidation/add";
+		//String extvaladdress = "http://109.231.121.200:8022/services/DavideTosiWS/external/Successability_SU/EmpiricalValidation/add";
 		String extvaladdress = "http://localhost:8022/services/DavideTosiWS/external/Successability_SU/EmpiricalValidation/add";
 		JSONObject extvalinput = new JSONObject();
 		extvalinput.put("service_name", "DavideTosiWS");
@@ -190,7 +197,7 @@ public class WSQRClient {
 		System.out.println("\nPOST " + extvaladdress);
 		JSONObject extvaloutput = performJsonPostRequest(extvaladdress, extvalinput);
 		System.out.println(extvaloutput.toString(3).replaceAll("\\\\/", "/"));
-		*/
+		
 		
 		// Update internal measure to web service
 		/*//String intupaddress = "http://109.231.121.200:8022/services/DavideTosiWS/internal/McCabe_Cyclomatic_Complexity_CC/update";
@@ -219,8 +226,8 @@ public class WSQRClient {
 		*/
 		
 		// Update internal validation means to web service
-		//String intvalupaddress = "http://109.231.121.200:8022/services/DavideTosiWS/internal/McCabe_Cyclomatic_Complexity_CC/Average/update";
-		String intvalupaddress = "http://localhost:8022/services/DavideTosiWS/internal/McCabe_Cyclomatic_Complexity_CC/Average/update";
+		/*//String intvalupaddress = "http://109.231.121.200:8022/services/DavideTosiWS/internal/McCabe_Cyclomatic_Complexity_CC/AxiomaticApproach/update";
+		String intvalupaddress = "http://localhost:8022/services/DavideTosiWS/internal/McCabe_Cyclomatic_Complexity_CC/AxiomaticApproach/update";
 		JSONObject intvalupinput = new JSONObject();
 		intvalupinput.put("service_name", "DavideTosiWS");
 		intvalupinput.put("measure_name", "McCabe_Cyclomatic_Complexity_CC");
@@ -232,25 +239,25 @@ public class WSQRClient {
 		System.out.println("\nPOST " + intvalupaddress);
 		JSONObject intvalupoutput = performJsonPostRequest(intvalupaddress, intvalupinput);
 		System.out.println(intvalupoutput.toString(3).replaceAll("\\\\/", "/"));
-		
+		*/
 							
 		// Update external validation means to web service
-		/*//String extvalupaddress = "http://109.231.121.200:8022/services/DavideTosiWS/external/Successability_SU/EmpiricalValidation/update";
+		//String extvalupaddress = "http://109.231.121.200:8022/services/DavideTosiWS/external/Successability_SU/EmpiricalValidation/update";
 		String extvalupaddress = "http://localhost:8022/services/DavideTosiWS/external/Successability_SU/EmpiricalValidation/update";
 		JSONObject extvalupinput = new JSONObject();
 		extvalupinput.put("service_name", "DavideTosiWS");
 		extvalupinput.put("measure_name", "Successability_SU");
-		extvalupinput.put("measure_kind", "Raw");
+		extvalupinput.put("measure_value_kind", "Raw");
 		extvalupinput.put("validation_means", "EmpiricalValidation");
 		extvalupinput.put("accuracy_indicator_used", "R^2");
 		extvalupinput.put("accuracy_level", (float) 0.923);
 		extvalupinput.put("statistical_test_used", "T-test");
 		extvalupinput.put("p_value", (float) 0.005);
-		extvalupinput.put("statistical_significance_level", (float) 0.8);
+		extvalupinput.put("statistical_significance_level", (float) 0.9);
 		System.out.println("\nPOST " + extvalupaddress);
 		JSONObject extvalupoutput = performJsonPostRequest(extvalupaddress, extvalupinput);
 		System.out.println(extvalupoutput.toString(3).replaceAll("\\\\/", "/"));
-		*/
+		
 
 		
 		// Get internal measure of web service by position  --IT RETURNS THE MEASURE SAVED EVEN THOUGH IT'S AN EXTERNAL ONE.
@@ -285,12 +292,7 @@ public class WSQRClient {
 		System.out.println(extgetout.toString(3).replaceAll("\\\\/", "/"));
 		*/
 				
-		// Get all measures of web service
-		//String address = "http://109.231.121.200:8022/services/ArtistRegistryWS/measures";
-		String address = "http://localhost:8022/services/DavideTosiWS/measures";
-		System.out.println("\nGET " + address);
-		JSONObject input = performJsonGetRequest(address);
-		System.out.println(input.toString(3).replaceAll("\\\\/", "/"));
+
 		
 		
 		// Delete a web service
