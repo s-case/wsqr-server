@@ -370,12 +370,12 @@ public class WSQRGenerator {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measureName, @PathParam("measure_kind") String measureKind, String request) throws JSONException {
+			@PathParam("measure_name") String measureName, @PathParam("measure_kind") String validationMeans, String request) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
-		System.out.println("UPDATE Measure from Service: " + serviceName);
+		System.out.println("UPDATE Measure Internal Validation Means from Service: " + serviceName);
 		System.out.println("Measure Name: " + measureName);
-		System.out.println("Measure Kind: " + measureKind);
+		System.out.println("Internal Validation Means: " + validationMeans);
 		
 		JSONObject jsonRequest = new JSONObject(request);
 		
@@ -385,22 +385,21 @@ public class WSQRGenerator {
 		//String measure_kind = jsonRequest.getString("measure_kind");
 		String attribute_name = jsonRequest.getString("attribute_name");
 		String attribute_value = jsonRequest.getString("attribute_value");
-		String validation_means = jsonRequest.getString("validation_means");
+		String measure_kind = jsonRequest.getString("measure_kind");
 		String internal_measure_kind = jsonRequest.getString("internal_measure_kind");
 		
 		System.out.println("Attribute Name: " + attribute_name);
 		System.out.println("Attribute Value: " + attribute_value);
-		System.out.println("Validation means: " + validation_means);
 		System.out.println("Internal Measure Kind: " + internal_measure_kind);
 		
-		ontology.updateInternalValidationMeansOfMeasure(serviceName, measureName, measureKind,
-				validation_means, attribute_name, attribute_value, internal_measure_kind);
+		ontology.updateInternalValidationMeansOfMeasure(serviceName, measureName, measure_kind,
+				validationMeans, attribute_name, attribute_value, internal_measure_kind);
 		ontology.close();
 		JSONObject json = new JSONObject();
 		json.put("service_name", serviceName);
 		json.put("measure_name", measureName);
-		json.put("measure_kind", measureKind);
-		json.put("validation_means", validation_means);
+		json.put("measure_kind", measure_kind);
+		json.put("validation_means", validationMeans);
 		json.put("attribute_name", attribute_name);
 		json.put("attribute_value", attribute_value);
 		json.put("internal_measure_kind", internal_measure_kind);
