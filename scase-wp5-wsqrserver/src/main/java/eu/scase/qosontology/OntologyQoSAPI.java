@@ -185,7 +185,6 @@ public class OntologyQoSAPI {
 	
 	public void deleteInternalValidationMeansFromMeasure(String WebServiceName, String MeasureName, String MeasureValueKind) {
 		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
-		System.out.println("NELL'ONTOLOGIA FACCIO DELETE PER: "+individualName);
 		ontology.removePropertyFromIndividual(individualName, "MeasureValidationMeans");
 		ontology.removePropertyFromIndividual(individualName, "AttributeName");
 		ontology.removePropertyFromIndividual(individualName, "AttributeValue");
@@ -217,9 +216,7 @@ public class OntologyQoSAPI {
 	
 	public void updateInternalValidationMeansOfMeasure(String WebServiceName, String MeasureName, String MeasureValueKind,
 			String MeasureValidationMeans, String AttributeName, String AttributeValue, String InternalMeasureKind) {
-		System.out.println("ONTOLOGIA PARAMETRI: " +WebServiceName +" , "+MeasureName +" , "+MeasureValueKind+" , "+MeasureValidationMeans+" , "+AttributeName+" , "+AttributeValue+" , "+InternalMeasureKind);
 		deleteInternalValidationMeansFromMeasure(WebServiceName, MeasureName, MeasureValueKind);
-		System.out.println("ONTOLOGIA DI RITORNO DALLA DELETE");		
 		addInternalValidationMeansToMeasure(WebServiceName, MeasureName, MeasureValueKind, MeasureValidationMeans,
 				AttributeName, AttributeValue, InternalMeasureKind);
 	}
