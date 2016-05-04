@@ -365,12 +365,12 @@ public class WSQRGenerator {
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
-	@Path("/{service_name}/internal/{measure_name}/{measure_kind}/update")
+	@Path("/{service_name}/internal/{measure_name}/{validation_means}/update")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateInternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measureName, @PathParam("measure_kind") String validationMeans, String request) throws JSONException {
+			@PathParam("measure_name") String measureName, @PathParam("validation_means") String validationMeans, String request) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
 		System.out.println("UPDATE Measure Internal Validation Means from Service: " + serviceName);
@@ -381,15 +381,13 @@ public class WSQRGenerator {
 		
 		if (!jsonRequest.has("service_name") && !jsonRequest.has("measure_name") && !jsonRequest.has("validation_means"))
 		    throw new WebApplicationException(Response.status(422).entity("Please include a \"phrase\" JSON key").type("text/plain").build());
-		
-		//String measure_kind = jsonRequest.getString("measure_kind");
 		String attribute_name = jsonRequest.getString("attribute_name");
 		String attribute_value = jsonRequest.getString("attribute_value");
 		String measure_kind = jsonRequest.getString("measure_kind");
 		String internal_measure_kind = jsonRequest.getString("internal_measure_kind");
-		
 		System.out.println("Attribute Name: " + attribute_name);
 		System.out.println("Attribute Value: " + attribute_value);
+		System.out.println("Validation means: " + validationMeans);
 		System.out.println("Internal Measure Kind: " + internal_measure_kind);
 		
 		ontology.updateInternalValidationMeansOfMeasure(serviceName, measureName, measure_kind,
@@ -413,12 +411,12 @@ public class WSQRGenerator {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateExternalValidationMeansToWebService(@PathParam("service_name") String serviceName,
-			@PathParam("measure_name") String measure, @PathParam("validation_means") String means,
-			String request) throws JSONException {
+			@PathParam("measure_name") String measureName, @PathParam("validation_means") String validationMeans, String request) throws JSONException {
 		OntologyQoSAPI ontology = new OntologyQoSAPI();
 
-		System.out.println("POST external: " + serviceName);
-		System.out.println("Validation means: " + means);
+		System.out.println("UPDATE Measure External Validation Means from Service: " + serviceName);
+		System.out.println("Measure Name: " + measureName);
+		System.out.println("External Validation Means: " + validationMeans);
 
 		JSONObject jsonRequest = new JSONObject(request);
 		if (!jsonRequest.has("service_name") && !jsonRequest.has("measure_name") && !jsonRequest.has("validation_means"))
@@ -431,14 +429,14 @@ public class WSQRGenerator {
 		double p_value = jsonRequest.getDouble("p_value");
 		double statistical_significance_level = jsonRequest.getDouble("statistical_significance_level");
 		
-		ontology.updateValidationMeansOfMeasure(serviceName, measure, measure_kind, means, accuracy_indicator_used,
+		ontology.updateValidationMeansOfMeasure(serviceName, measureName, measure_kind, validationMeans, accuracy_indicator_used,
 				(float) accuracy_level, statistical_test_used, (float) p_value, (float) statistical_significance_level);
 		ontology.close();
 		
 		JSONObject json = new JSONObject();
 		json.put("service_name", serviceName);
-		json.put("measure_name", measure);
-		json.put("validation_means", means);
+		json.put("measure_name", measureName);
+		json.put("validation_means", validationMeans);
 
 		return Response.status(200).entity(json.toString()).build();
 	}
