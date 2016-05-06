@@ -373,6 +373,88 @@ If the request is correct the server should return a Response 200
                "value": "..."
             }
             
+# Update Internal Validation Means [/{service_name}/internal/{measure_name}/{validation_means}/update]
+An endpoint for updating an internal validation means.
+
+Updating an internal validation means requires sending a POST request including the service name, the measure name and the validation means and receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+- validationMeans
+
+## Annotating phrases [POST]
+
+Using the WSQR server for updating an internal validation means requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+            "validation_means": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+               "validation_means": "..."
+            }  
+            
+# Update External Validation Means [/{service_name}/external/{measure_name}/{validation_means}/update]
+An endpoint for updating an external validation means.
+
+Updating an external validation means requires sending a POST request including the service name, the measure name and the validation means and receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+- validationMeans
+
+## Annotating phrases [POST]
+
+Using the WSQR server for updating an external validation means requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+            "validation_means": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+               "validation_means": "..."
+            }
+            
 # Get Internal Measure by Position [/services/{service_name}/internal/{measure_position}/get]
 An endpoint for getting an internal measure by position.
 
@@ -449,6 +531,83 @@ If the request is correct the server should return a Response 200
                "serviceName": "..."
                "measure_name": "..."
             }
+
+# Get External Measure by Position [/services/{service_name}/external/{measure_position}/get]
+An endpoint for getting an external measure by position.
+
+Getting a new external measure requires sending a GET request including the service name and the measure position and receiving a response containing the following attributes: 
+
+- serviceName
+- measurePos
+
+## Annotating phrases [POST]
+
+Using the WSQR server for getting an external measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_pos": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+            }  
+            
+# Get External Measure by Kind [/services/{service_name}/external/{measure_name}/{value_kind}]
+An endpoint for getting an external measure by value kind.
+
+Getting a new external measure requires sending a GET request including the service name, the measure name and the value kind and receiving a response containing the following attributes: 
+
+- serviceName
+- measureName
+- valueKind
+
+## Annotating phrases [POST]
+
+Using the WSQR server for getting an external measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_value": "..."
+        }
+
+If the request is correct the server should return a Response 200
+
++ Response 200 (application/json)
+   + Headers
+   
+            {
+               "transfer-encoding": "chunked",
+               "date": "...",
+               "content-type": "application/json",
+               "server": "..."
+            }
+
+   + Body
+
+            {
+               "serviceName": "..."
+               "measure_name": "..."
+            }
             
 # Get all Measures [/services/{service_name}/measures]
 An endpoint for getting all measures of a web service.
@@ -485,3 +644,51 @@ If the request is correct the server should return a Response 200
                "serviceName": "..."
                "measure_name": "..."
             }
+            
+# Delete Internal Measure [/{service_name}/internal/{measure_name}/{measure_kind}/delete]
+An endpoint for deleting an internal measure.
+
+Deleting a new internal measure requires sending a DELETE request including the service name, the measure name and the value kind
+receiving a response containing the following attributes: 
+
+- serviceName
+- measure
+- measureKind
+
+## Annotating phrases [DELETE]
+
+Using the WSQR server for deleting an internal measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+            "measure_kind": "..."
+        }
+
+If the request is correct the server should return a Response 200 and the measure is deleted.       
+
+# Delete External Measure [/{service_name}/external/{measure_name}/{measure_kind}/delete]
+An endpoint for deleting an external measure.
+
+Deleting a new external measure requires sending a DELETE request including the service name, the measure name and the value kind
+receiving a response containing the following attributes: 
+
+- serviceName
+- measure
+- measureKind
+
+## Annotating phrases [DELETE]
+
+Using the WSQR server for deleting an external measure requires posting the following request:
+
++ Request (application/json)
+
+        {
+            "service_name": "..."
+            "measure_name": "..."
+            "measure_kind": "..."
+        }
+        
+If the request is correct the server should return a Response 200 and the measure is deleted.
