@@ -20,8 +20,8 @@ public class OntologyQoSAPI {
 	 * you do <u><b>NOT</b></u> call {@link #close()}.
 	 */
 	public OntologyQoSAPI() {
-		String filename = "/Users/davidetosi/Documents/workspace_Mars/wsqr-server-master/scase-wp5-wsqrserver/ontology/WSQuality.owl";
-		//String filename = "/home/ubuntu/WSQuality.owl";
+		//String filename = "/Users/davidetosi/Documents/workspace_Mars/wsqr-server-master/scase-wp5-wsqrserver/ontology/WSQuality.owl";
+		String filename = "/home/ubuntu/WSQuality.owl";
 		String SOURCE = "http://www.owl-ontologies.com/Ontology1406103978.owl";
 		ontology = new OntologyJenaAPI(filename, SOURCE);
 	}
