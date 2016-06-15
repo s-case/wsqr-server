@@ -100,6 +100,51 @@ public class OntologyQoSAPI {
 		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
 		return ontology.getIndividualPropertyValue(individualName, "MeasureValue").getFloat();
 	}
+	
+	public String getMeasureValidationForWebService(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		return ontology.getIndividualPropertyValue(individualName, "MeasureValidationMeans").getString();
+	}
+	
+	public String getMeasureKindForWebService(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		return ontology.getIndividualPropertyValue(individualName, "InternalMeasureKind").getString();
+	}
+	
+	public String getMeasureAttributeNameForWebService(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		return ontology.getIndividualPropertyValue(individualName, "AttributeName").getString();
+	}
+	
+	public String getMeasureAttributeValueForWebService(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		return ontology.getIndividualPropertyValue(individualName, "AttributeValue").getString();
+	}
+	
+	public String getMeasureAccuracyIndicatorForWebService(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		return ontology.getIndividualPropertyValue(individualName, "AccuracyIndicatorUsed").getString();
+	}
+	
+	public float getMeasureAccuracyLevelForWebService(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		return ontology.getIndividualPropertyValue(individualName, "AccuracyLevel").getFloat();
+	}
+	
+	public String getMeasureStatisticalTestForWebService(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		return ontology.getIndividualPropertyValue(individualName, "StatisticalTestUsed").getString();
+	}
+	
+	public float getMeasurePValueForWebService(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		return ontology.getIndividualPropertyValue(individualName, "PValue").getFloat();
+	}
+	
+	public float getMeasureStatisticalSignificanceLevelForWebService(String WebServiceName, String MeasureName, String MeasureValueKind) {
+		String individualName = WebServiceName + "__" + MeasureName + "__" + MeasureValueKind;
+		return ontology.getIndividualPropertyValue(individualName, "StatisticalSignificanceLevel").getFloat();
+	}
 
 	/**
 	 * Deletes a measure of a specific web service. If the measure does not exist, nothing happens.
