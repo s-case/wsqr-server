@@ -18,7 +18,7 @@ import eu.scase.qosontology.OntologyQoSAPI;
 /**
  * Provides the WSQR Restful set of methods for all the WSQR operations in the API.
  * 
- * @author Carola Bianchi.
+ * @author Carola Bianchi and Davide Tosi
  */
 
 /*
@@ -269,9 +269,17 @@ public class WSQRGenerator {
 		System.out.println("Measure: " + measureName);
 
 		float measure = ontology.getMeasureValueForWebService(serviceName, measureName, valueKind);
+		String validationMeans = ontology.getMeasureValidationForWebService(serviceName, measureName, valueKind);
+		String internalMeasureKind = ontology.getMeasureKindForWebService(serviceName, measureName, valueKind);
+		String attributeName = ontology.getMeasureAttributeNameForWebService(serviceName, measureName, valueKind);
+		String attributeValue = ontology.getMeasureAttributeValueForWebService(serviceName, measureName, valueKind);
 		ontology.close();
 		JSONObject json = new JSONObject();
 		json.put("measure_value", measure);
+		json.put("validation_means", validationMeans);
+		json.put("internal_measure_kind", internalMeasureKind);
+		json.put("attribute_name", attributeName);
+		json.put("attribute_value", attributeValue);
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
@@ -302,9 +310,21 @@ public class WSQRGenerator {
 		System.out.println("Measure: " + measureName);
 				
 		float measure = ontology.getMeasureValueForWebService(serviceName, measureName, valueKind);
+		String accuracyIndicatorUsed = ontology.getMeasureAccuracyIndicatorForWebService(serviceName, measureName, valueKind);
+		float accuracyLevel = ontology.getMeasureAccuracyLevelForWebService(serviceName, measureName, valueKind);
+		String statisticalTestUsed = ontology.getMeasureStatisticalTestForWebService(serviceName, measureName, valueKind);
+		float pValue = ontology.getMeasurePValueForWebService(serviceName, measureName, valueKind);
+		float statisticalSignificanceLevel = ontology.getMeasureStatisticalSignificanceLevelForWebService(serviceName, measureName, valueKind);
 		ontology.close();
+		
 		JSONObject json = new JSONObject();
 		json.put("measure_value", measure);
+		json.put("accuracy_indicator_used", accuracyIndicatorUsed);
+		json.put("accuracy_level", accuracyLevel);
+		json.put("statistical_test_used", statisticalTestUsed);
+		json.put("p_value", pValue);
+		json.put("statistical_significance_level", statisticalSignificanceLevel);
+		
 		return Response.status(200).entity(json.toString()).build();
 	}
 	
