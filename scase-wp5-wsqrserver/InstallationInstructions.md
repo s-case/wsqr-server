@@ -53,8 +53,8 @@ sudo service jetty start/stop/restart
 ```
 
 ### Install the service
-Build the service and copy the generated root.war file into /opt/jetty/webapps
-Change the permissions of the root.war file, using the command: sudo chmod 755 /opt/jetty/webapps/root.war
-Copy the ontology file (WSQuality.owl) into /home/ubuntu/
-Change the permissions of the ontology file, using the command: sudo chmod 777 /home/ubuntu/WSQuality.owl
-Restart the server and check that it works by going at http://localhost:8022/
+Build the service and copy the generated `root.war` file into `/opt/jetty/webapps`
+Change the permissions of the root.war file, using the command: `sudo chmod 755 /opt/jetty/webapps/root.war`
+Copy the ontology file (`WSQuality.owl`) into `/home/ubuntu/`
+Change the permissions of the ontology file, using the command: `sudo chmod 777 /home/ubuntu/WSQuality.owl`
+Restart the server and check that it works by going at `http://localhost:8022/`
