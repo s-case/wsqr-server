@@ -236,7 +236,6 @@ public class WSQRGenerator {
 		System.out.println("GET measures :" + serviceName);
 		
 		ArrayList<String> measures = ontology.getAllMeasuresOfWebService(serviceName);
-		ontology.close();
 		JSONObject json = new JSONObject();
 		prepareJson(measures, json);
 		return Response.status(200).entity(json.toString()).build();
@@ -252,7 +251,6 @@ public class WSQRGenerator {
 		System.out.println("MeasurePosition: " + measurePos);
 
 		String measure = ontology.getMeasureOfWebService(serviceName, measurePos);
-		ontology.close();
 		JSONObject json = new JSONObject();
 		json.put("measure", measure);
 		return Response.status(200).entity(json.toString()).build();
@@ -273,7 +271,6 @@ public class WSQRGenerator {
 		String internalMeasureKind = ontology.getMeasureKindForWebService(serviceName, measureName, valueKind);
 		String attributeName = ontology.getMeasureAttributeNameForWebService(serviceName, measureName, valueKind);
 		String attributeValue = ontology.getMeasureAttributeValueForWebService(serviceName, measureName, valueKind);
-		ontology.close();
 		JSONObject json = new JSONObject();
 		json.put("measure_value", measure);
 		json.put("validation_means", validationMeans);
@@ -293,7 +290,6 @@ public class WSQRGenerator {
 		System.out.println("Measure: " + measurePos);
 
 		String measure = ontology.getMeasureOfWebService(serviceName, measurePos);
-		ontology.close();
 		JSONObject json = new JSONObject();
 		json.put("measure", measure);
 		return Response.status(200).entity(json.toString()).build();
@@ -315,7 +311,6 @@ public class WSQRGenerator {
 		String statisticalTestUsed = ontology.getMeasureStatisticalTestForWebService(serviceName, measureName, valueKind);
 		float pValue = ontology.getMeasurePValueForWebService(serviceName, measureName, valueKind);
 		float statisticalSignificanceLevel = ontology.getMeasureStatisticalSignificanceLevelForWebService(serviceName, measureName, valueKind);
-		ontology.close();
 		
 		JSONObject json = new JSONObject();
 		json.put("measure_value", measure);
