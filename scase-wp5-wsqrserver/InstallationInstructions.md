@@ -17,7 +17,7 @@ sudo apt-get install oracle-java8-installer
 ### Install jetty similarly to [here](http://www.ubuntugeek.com/install-jetty-9-java-servlet-engine-and-webserver-on-ubuntu-14-10-server.html)
 Download jetty
 ```
-wget http://download.eclipse.org/jetty/stable-9/dist/jetty-distribution-9.3.7.v20160115.tar.gz
+wget http://archive.eclipse.org/jetty/9.3.7.v20160115/dist/jetty-distribution-9.3.7.v20160115.tar.gz
 tar -xvf jetty-distribution-9.3.7.v20160115.tar.gz 
 sudo mv jetty-distribution-9.3.7.v20160115 /opt/jetty
 ```
