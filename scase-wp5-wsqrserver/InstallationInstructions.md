@@ -30,9 +30,10 @@ sudo chown -R jetty:jetty /opt/jetty
 
 Create startup script
 ```
-sudo cp /opt/jetty/bin/jetty.sh /etc/init.d/jetty
+sudo update-rc.d jetty defaults
 ```
-
+(if this does not work, you can try `sudo cp /opt/jetty/bin/jetyy.sh /etc/init.d/jetty`)  
+  
 Create properties file
 ```
 sudo nano /etc/default/jetty
