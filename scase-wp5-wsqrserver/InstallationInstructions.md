@@ -32,7 +32,7 @@ Create startup script
 ```
 sudo update-rc.d jetty defaults
 ```
-(if this does not work, you can try `sudo cp /opt/jetty/bin/jetyy.sh /etc/init.d/jetty`)  
+(if this does not work, you can try `sudo cp /opt/jetty/bin/jetty.sh /etc/init.d/jetty`)  
   
 Create properties file
 ```
