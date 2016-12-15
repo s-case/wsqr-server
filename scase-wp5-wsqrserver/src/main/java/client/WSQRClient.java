@@ -11,9 +11,9 @@ import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 
 /**
- * A WSQR web client. This class serves as an example of using the WSQR Server.
+ * A WSQR web client. This class serves to test the WSQR Server.
  * 
- * @author Themistoklis Diamantopoulos
+ * @author Themistoklis Diamantopoulos, Davide Tosi
  */
 public class WSQRClient {
 
