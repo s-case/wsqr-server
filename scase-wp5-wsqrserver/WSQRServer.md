@@ -1,8 +1,7 @@
 FORMAT: 1A
 
 # WSQR Server API
-This is the API of the NLP Server created as part of the EU-funded project [S-CASE](http://www.scasefp7.eu/).
-This page serves as usage instructions for the RESTful WSQR web service.
+This is the API of the RESTful WSQR web service created as part of the EU-funded project [S-CASE](http://s-case.github.io/).
 
 ## Media Types
 This API uses the JSON media-type for all possible actions. Requests and responses must all have JSON format.
