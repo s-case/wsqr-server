@@ -44,8 +44,6 @@ receiving a response containing the following attributes:
 
 - serviceName
 
-## Annotating phrases [POST]
-
 Using the WSQR server for adding a service requires posting the following request:
 
 + Request (application/json)
@@ -117,8 +115,6 @@ receiving a response containing the following attributes:
 
 - serviceName
 
-## Annotating phrases [DELETE]
-
 Using the WSQR server for deleting a service requires posting the following request:
 
 + Request (application/json)
@@ -139,8 +135,6 @@ receiving a response containing the following attributes:
 - measureName
 - measureKind
 - measureValue
-
-## Annotating phrases [POST]
 
 Using the WSQR server for adding an internal measure requires posting the following request:
 
@@ -181,8 +175,6 @@ receiving a response containing the following attributes:
 - measureKind
 - measureValue
 
-## Annotating phrases [POST]
-
 Using the WSQR server for adding an external measure requires posting the following request:
 
 + Request (application/json)
@@ -219,8 +211,6 @@ Adding a new internal validation means requires sending a POST request including
 - serviceName
 - measureName
 - means
-
-## Annotating phrases [POST]
 
 Using the WSQR server for adding an internal validation means requires posting the following request:
 
@@ -261,8 +251,6 @@ Adding a new external validation means requires sending a POST request including
 - measureName
 - means
 
-## Annotating phrases [POST]
-
 Using the WSQR server for adding an external validation means requires posting the following request:
 
 + Request (application/json)
@@ -301,8 +289,6 @@ Updating an internal measure requires sending a POST request including the servi
 - serviceName
 - measureName
 
-## Annotating phrases [POST]
-
 Using the WSQR server for updating an internal measure requires posting the following request:
 
 + Request (application/json)
@@ -340,8 +326,6 @@ Updating an external measure requires sending a POST request including the servi
 
 - serviceName
 - measureName
-
-## Annotating phrases [POST]
 
 Using the WSQR server for updating an external measure requires posting the following request:
 
@@ -382,8 +366,6 @@ Updating an internal validation means requires sending a POST request including 
 - measureName
 - validationMeans
 
-## Annotating phrases [POST]
-
 Using the WSQR server for updating an internal validation means requires posting the following request:
 
 + Request (application/json)
@@ -423,8 +405,6 @@ Updating an external validation means requires sending a POST request including 
 - measureName
 - validationMeans
 
-## Annotating phrases [POST]
-
 Using the WSQR server for updating an external validation means requires posting the following request:
 
 + Request (application/json)
@@ -463,8 +443,6 @@ Getting a new internal measure requires sending a GET request including the serv
 - serviceName
 - measurePos
 
-## Annotating phrases [POST]
-
 Using the WSQR server for getting an internal measure requires posting the following request:
 
 + Request (application/json)
@@ -502,8 +480,6 @@ Getting a new internal measure requires sending a GET request including the serv
 - measureName
 - valueKind
 
-## Annotating phrases [POST]
-
 Using the WSQR server for getting an internal measure requires posting the following request:
 
 + Request (application/json)
@@ -539,8 +515,6 @@ Getting a new external measure requires sending a GET request including the serv
 
 - serviceName
 - measurePos
-
-## Annotating phrases [POST]
 
 Using the WSQR server for getting an external measure requires posting the following request:
 
@@ -579,8 +553,6 @@ Getting a new external measure requires sending a GET request including the serv
 - measureName
 - valueKind
 
-## Annotating phrases [POST]
-
 Using the WSQR server for getting an external measure requires posting the following request:
 
 + Request (application/json)
@@ -615,8 +587,6 @@ An endpoint for getting all measures of a web service.
 Getting all measures requires sending a GET request including the service name and receiving a response containing the following attributes: 
 
 - serviceName
-
-## Annotating phrases [POST]
 
 Using the WSQR server for getting all measures requires posting the following request:
 
@@ -655,8 +625,6 @@ receiving a response containing the following attributes:
 - measure
 - measureKind
 
-## Annotating phrases [DELETE]
-
 Using the WSQR server for deleting an internal measure requires posting the following request:
 
 + Request (application/json)
@@ -678,8 +646,6 @@ receiving a response containing the following attributes:
 - serviceName
 - measure
 - measureKind
-
-## Annotating phrases [DELETE]
 
 Using the WSQR server for deleting an external measure requires posting the following request:
 
