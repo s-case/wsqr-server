@@ -89,7 +89,7 @@ public class OntologyQoSQuery {
 		}
 		whereStringWS = whereStringWS.substring(0, whereStringWS.length() - 7);
 		return this;
-	}
+	} 
 
 	/**
 	 * Adds a new variable to be able to select it and perform queries on it. The new variable may either be a measure
