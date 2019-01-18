@@ -44,7 +44,7 @@ public class OntologyQoSAPI {
 	 */
 	public void deleteWebService(String WebServiceName) {
 		ontology.removeIndividualsGivenIndividualAndProperty(WebServiceName, "has_measure");
-		ontology.removeIndividual(WebServiceName);
+		ontology.removeIndividual(WebServiceName); 
 	}
 	
 	/**
