@@ -352,6 +352,6 @@ public class WSQRClient {
 		System.out.println("\nDELETE " + delextvali);
 		JSONObject delextvalo = performJsonDeleteRequest(delextvali);
 		System.out.println(delextvalo.toString(3).replaceAll("\\\\/", "/"));
-		*/
+		*/ 
 	}
 }
