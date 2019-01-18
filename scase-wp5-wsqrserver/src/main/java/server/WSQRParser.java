@@ -2,7 +2,7 @@ package server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
+import java.io.StringReader; 
 
 /**
  * Provides a parser to read a WSQR representation.
