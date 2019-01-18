@@ -2,7 +2,7 @@
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
     xmlns="http://www.owl-ontologies.com/Ontology1406103978.owl#"
-    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#" 
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
