@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Provides the WSQR Service Instance.
+ * Provides the WSQR Service Instance. 
  * 
  * @author Davide Tosi, Carola Bianchi, Marco Compagnoni and Matteo Tegnenti
  */
