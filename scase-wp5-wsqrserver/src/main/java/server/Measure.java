@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Measure implements Serializable{
 	private String content;
 	public  final String M_N="<MeasureName>";
-	public  final String M_VK="<MeasureValueKind>";
+	public  final String M_VK="<MeasureValueKind>"; 
 	public  final String M_V="<MeasureValue>";
 	public  final String M_VMN="ValidationMeansName";
 	public  final String M_AIU="AccuracyIndicatorUsed";
